@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/lofi-cat-final.jpg" width="100%" alt="Stellmaria — lo-fi coding cat on a rainy night" />
+<img src="./assets/lofi-cat-live.gif" width="100%" alt="Stellmaria — lo-fi coding cat on a rainy night" />
 
 <br />
 
