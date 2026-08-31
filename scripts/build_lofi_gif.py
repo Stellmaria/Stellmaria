@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import io
 import math
 import random
 from pathlib import Path
@@ -7,7 +9,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "assets" / "lofi-cat-final.jpg"
+SOURCE_B64 = ROOT / "assets" / "lofi-cat-source.b64"
 OUTPUT = ROOT / "assets" / "lofi-cat-live.gif"
 
 WIDTH = 720
@@ -16,7 +18,8 @@ FRAME_COUNT = 16
 
 
 def build() -> None:
-    base = Image.open(SOURCE).convert("RGB").resize(
+    source_bytes = base64.b64decode(SOURCE_B64.read_text(encoding="utf-8").strip())
+    base = Image.open(io.BytesIO(source_bytes)).convert("RGB").resize(
         (WIDTH, HEIGHT), Image.Resampling.LANCZOS
     )
     base = ImageEnhance.Sharpness(base).enhance(1.06)
@@ -47,7 +50,6 @@ def build() -> None:
         phase = 2 * math.pi * index / FRAME_COUNT
         frame = base.convert("RGBA")
 
-        # Soft monitor breathing. The illustration stays intact; only light moves.
         glow = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
         draw = ImageDraw.Draw(glow)
         alpha = int(10 + 7 * (0.5 + 0.5 * math.sin(phase)))
@@ -57,7 +59,6 @@ def build() -> None:
         glow = glow.filter(ImageFilter.GaussianBlur(12))
         frame = Image.alpha_composite(frame, glow)
 
-        # Purple star lamp pulse.
         lamp = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
         draw = ImageDraw.Draw(lamp)
         alpha = int(18 + 15 * (0.5 + 0.5 * math.sin(phase + 0.9)))
@@ -65,7 +66,6 @@ def build() -> None:
         lamp = lamp.filter(ImageFilter.GaussianBlur(10))
         frame = Image.alpha_composite(frame, lamp)
 
-        # Rain is limited to the window/city side of the scene.
         rain_layer = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
         draw = ImageDraw.Draw(rain_layer)
         for drop_index, (x, y0, length, speed, alpha) in enumerate(rain):
@@ -78,7 +78,6 @@ def build() -> None:
                 )
         frame = Image.alpha_composite(frame, rain_layer)
 
-        # Three slow steam wisps above the mug.
         steam = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
         draw = ImageDraw.Draw(steam)
         for wisp in range(3):
@@ -96,7 +95,6 @@ def build() -> None:
         steam = steam.filter(ImageFilter.GaussianBlur(0.5))
         frame = Image.alpha_composite(frame, steam)
 
-        # Tiny star twinkles, intentionally restrained.
         twinkles = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
         draw = ImageDraw.Draw(twinkles)
         for star_index, (x, y, radius) in enumerate(stars):
@@ -107,13 +105,11 @@ def build() -> None:
             draw.line((x, y - r * 2, x, y + r * 2), fill=(226, 190, 255, alpha))
         frame = Image.alpha_composite(frame, twinkles)
 
-        # Barely perceptible room-light breathing prevents harsh flicker.
         rgb = ImageEnhance.Brightness(frame.convert("RGB")).enhance(
             1 + 0.01 * math.sin(phase)
         )
         frames.append(rgb)
 
-    # Shared palette keeps the GIF compact and prevents color-palette flicker.
     sample = Image.new("RGB", (WIDTH * 4, HEIGHT * 2))
     for slot in range(8):
         sample.paste(
