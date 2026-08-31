@@ -1,16 +1,19 @@
-## Hi there 👋
+<div align="center">
 
-<!--
-**Stellmaria/Stellmaria** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<img src="./assets/coding-cat.svg" width="900" alt="Stellmaria — animated coding cat" />
 
-Here are some ideas to get you started:
+<br />
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### `hello, world.`
+
+<sub>somewhere between a clean commit and one more tiny fix</sub>
+
+<br /><br />
+
+`code` · `cats` · `coffee` · `midnight commits`
+
+<br /><br />
+
+<img src="https://komarev.com/ghpvc/?username=Stellmaria&style=flat-square&color=7f5af0&label=visitors" alt="profile views" />
+
+</div>
