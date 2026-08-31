@@ -1,58 +1,20 @@
 <div align="center">
 
-<img src="./assets/lofi-cat-live.gif" width="100%" alt="Stellmaria — lo-fi coding cat on a rainy night" />
+<img src="./assets/lofi-cat-live.gif" width="100%" alt="Stellmaria — animated lo-fi coding cat on a rainy night" />
 
-<br />
-
-# Stellmaria
+<h2>Stellmaria</h2>
 
 <sub>☾ late-night code · cats · coffee · quiet commits ☾</sub>
 
-<br /><br />
+<br><br>
 
-<img src="https://komarev.com/ghpvc/?username=Stellmaria&style=flat-square&color=7f5af0&label=visitors" alt="Profile views" />
+<code>Java</code> · <code>Python</code> · <code>Git</code> · <code>GitHub</code> · <code>Docker</code> · <code>Linux</code>
 
-</div>
-
-<br />
-
-<div align="center">
-
-### ◇ night stack
-
-<br />
-
-<img src="https://skillicons.dev/icons?i=java,python,git,github,docker,linux&theme=dark" alt="Java, Python, Git, GitHub, Docker and Linux" />
-
-</div>
-
-<br />
-
-<div align="center">
-
-### ◇ current mood
-
-<br />
+<br><br>
 
 <code>while (night) { code(); coffee++; pet(cat); fixOneMoreThing(); }</code>
 
-</div>
-
-<br />
-
-<div align="center">
-
-### ◇ commit rhythm
-
-<br />
-
-<img width="72%" src="https://streak-stats.demolab.com?user=Stellmaria&hide_border=true&background=00000000&ring=9B7BC7&fire=C98BB9&currStreakLabel=C9A7E8&sideLabels=A99BB8&dates=7D718B&currStreakNum=E8DDF2&sideNums=E8DDF2" alt="GitHub contribution streak" />
-
-</div>
-
-<br />
-
-<div align="center">
+<br><br>
 
 <sub>✦ somewhere between a clean commit and one last tiny fix ✦</sub>
 
