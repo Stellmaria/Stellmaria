@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "assets/lofi-cat-source.b64"
+      - "assets/lofi-master-v3/**"
       - "scripts/build_lofi_gif.py"
       - ".github/workflows/build-lofi-banner.yml"
   workflow_dispatch:
@@ -30,28 +30,14 @@ jobs:
       - name: Build GIF
         run: python scripts/build_lofi_gif.py
 
-      - name: Ensure README uses animated banner
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path("README.md")
-          text = path.read_text(encoding="utf-8")
-          for old in (
-              "./assets/lofi-cat-final.jpg",
-              "./assets/lofi-cat-live.svg",
-          ):
-              text = text.replace(old, "./assets/lofi-cat-live.gif")
-          path.write_text(text, encoding="utf-8")
-          PY
-
       - name: Commit generated banner
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/lofi-cat-live.gif README.md
+          git add assets/lofi-cat-live.gif
           if git diff --cached --quiet; then
             echo "Banner is already up to date."
             exit 0
           fi
-          git commit -m "chore(profile): build animated lo-fi banner"
+          git commit -m "chore(profile): rebuild animated banner [skip ci]"
           git push
