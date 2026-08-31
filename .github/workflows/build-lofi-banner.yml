@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "assets/lofi-cat-final.jpg"
+      - "assets/lofi-cat-source.b64"
       - "scripts/build_lofi_gif.py"
       - ".github/workflows/build-lofi-banner.yml"
   workflow_dispatch:
@@ -30,13 +30,17 @@ jobs:
       - name: Build GIF
         run: python scripts/build_lofi_gif.py
 
-      - name: Switch README to animated banner
+      - name: Ensure README uses animated banner
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path("README.md")
           text = path.read_text(encoding="utf-8")
-          text = text.replace("./assets/lofi-cat-final.jpg", "./assets/lofi-cat-live.gif")
+          for old in (
+              "./assets/lofi-cat-final.jpg",
+              "./assets/lofi-cat-live.svg",
+          ):
+              text = text.replace(old, "./assets/lofi-cat-live.gif")
           path.write_text(text, encoding="utf-8")
           PY
 
