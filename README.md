@@ -6,12 +6,12 @@
 
 <h1>Stellmaria</h1>
 
-<sub>☾ Java Backend Developer · building quietly after dark ☾</sub>
+<sub>☾ Java Backend Developer · systems · data · infrastructure · automation ☾</sub>
 
 <br><br>
 
-Backend developer with a soft spot for clean boundaries, resilient systems,<br>
-and interfaces that stay out of the way.
+Backend developer drawn to clean boundaries, resilient services and production systems<br>
+that remain understandable after the interesting part is over.
 
 <br><br>
 
@@ -25,11 +25,19 @@ and interfaces that stay out of the way.
 
 <br>
 
-<img src="./assets/tech-stack.svg" width="100%" alt="Engineering toolkit" />
+<img src="./assets/tech-stack.svg" width="100%" alt="Engineering toolkit across public and private work" />
+
+<br>
+
+<img src="./assets/private-footprint.svg" width="100%" alt="Privacy-safe private engineering footprint" />
 
 <br>
 
 <img src="./assets/profile-stats.svg" width="100%" alt="GitHub pulse" />
+
+<br>
+
+<img src="./assets/contribution-observatory.svg" width="100%" alt="Rolling contribution observatory" />
 
 <br>
 
