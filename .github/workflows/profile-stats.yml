@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: profile-stats
+  cancel-in-progress: true
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -41,4 +45,6 @@ jobs:
             exit 0
           fi
           git commit -m "chore(profile): refresh GitHub pulse"
-          git push
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
