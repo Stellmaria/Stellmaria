@@ -39,6 +39,41 @@ CUSTOM_ICONS = {
         '<path d="M3 7h14m0 0-3.5-3.5M17 7l-3.5 3.5M21 17H7m0 0 3.5-3.5M7 17l3.5 3.5" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
         '<circle cx="4" cy="17" r="2" fill="{color}"/><circle cx="20" cy="7" r="2" fill="{color}"/>'
     ),
+    "springsecurity": (
+        '<path d="M12 2.5 20 5.7v5.4c0 5.2-3.3 8.7-8 10.4-4.7-1.7-8-5.2-8-10.4V5.7Z" fill="none" stroke="{color}" stroke-width="2" stroke-linejoin="round"/>'
+        '<path d="m8.5 12 2.2 2.2 4.9-5" fill="none" stroke="{color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'
+    ),
+    "telethon": (
+        '<circle cx="12" cy="12" r="10" fill="{color}" opacity=".16"/>'
+        '<path d="m5 11.5 13-6-4.7 13-2.5-5.1Z" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="m10.8 13.4 2.1-2.1" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round"/>'
+    ),
+    "asyncpg": (
+        '<ellipse cx="12" cy="5.6" rx="7.3" ry="3.1" fill="none" stroke="{color}" stroke-width="1.8"/>'
+        '<path d="M4.7 5.6v6.1c0 1.7 3.3 3.1 7.3 3.1s7.3-1.4 7.3-3.1V5.6M4.7 11.7v6.1c0 1.7 3.3 3.1 7.3 3.1s7.3-1.4 7.3-3.1v-6.1" fill="none" stroke="{color}" stroke-width="1.8"/>'
+    ),
+    "servletjsp": (
+        '<path d="M5 2.8h9.5l4.5 4.5v13.9H5Z" fill="none" stroke="{color}" stroke-width="1.8" stroke-linejoin="round"/>'
+        '<path d="M14.5 2.8v4.5H19M8 11h8M8 15h5.5" fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+    ),
+    "mockito": (
+        '<circle cx="8" cy="10" r="4" fill="none" stroke="{color}" stroke-width="1.8"/>'
+        '<circle cx="16" cy="14" r="4" fill="none" stroke="{color}" stroke-width="1.8"/>'
+        '<path d="m10.7 12.7 2.6-1.4M6.8 10h2.4M14.8 14h2.4" fill="none" stroke="{color}" stroke-width="1.6" stroke-linecap="round"/>'
+    ),
+    "testcontainers": (
+        '<rect x="3.5" y="5" width="17" height="14" rx="2" fill="none" stroke="{color}" stroke-width="1.8"/>'
+        '<path d="M8.5 5v14M14 5v14M3.5 10h17M3.5 14.5h17" fill="none" stroke="{color}" stroke-width="1.5"/>'
+        '<path d="m16.4 18.6 1.4 1.4 2.8-3" fill="none" stroke="{color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>'
+    ),
+    "cryptography": (
+        '<rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="{color}" stroke-width="1.9"/>'
+        '<path d="M8.5 10V7.7a3.5 3.5 0 0 1 7 0V10M12 14v3" fill="none" stroke="{color}" stroke-width="1.9" stroke-linecap="round"/>'
+    ),
+    "sshtunnel": (
+        '<rect x="3" y="4.5" width="18" height="15" rx="2" fill="none" stroke="{color}" stroke-width="1.8"/>'
+        '<path d="m7 9 3 3-3 3M12.5 15H17" fill="none" stroke="{color}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>'
+    ),
 }
 
 PANELS = [
@@ -54,9 +89,9 @@ PANELS = [
             ("PowerShell", "powershell", "#5391FE"),
         ],
         "lines": [
-            "Java 17 · Python 3.13 · JavaScript · SQL / PLpgSQL",
-            "HTML5 · CSS3 · Bash · PowerShell · automation scripts",
-            "backend-first engineering across production and study work",
+            "Java 8–17 · Python 3.12–3.14 · JavaScript · SQL / PLpgSQL",
+            "HTML5 · CSS3 · jQuery · Bash · PowerShell",
+            "backend-first engineering across public and private work",
         ],
     },
     {
@@ -64,16 +99,17 @@ PANELS = [
         "accent": "#efa5d1",
         "icons": [
             ("Spring", "spring", "#6DB33F"),
+            ("Security", "springsecurity", "#6DB33F"),
             ("Hibernate", "hibernate", "#59666C"),
-            ("Thymeleaf", "thymeleaf", "#005F0F"),
-            ("OpenAPI", "openapiinitiative", "#6BA539"),
-            ("Telegram", "telegram", "#26A5E4"),
+            ("Servlet/JSP", "servletjsp", "#f6efff"),
+            ("aiogram", "telegram", "#26A5E4"),
+            ("Telethon", "telethon", "#8f7cf7"),
             ("Flask", "flask", "#F5F5F5"),
         ],
         "lines": [
             "Spring Boot · MVC · Security · Data JPA · Hibernate",
-            "REST / OpenAPI · aiogram 3 · Telethon · Flask · aiohttp",
-            "async services · integrations · Telegram automation",
+            "Jakarta Servlet · JSP · Thymeleaf · REST / OpenAPI",
+            "aiogram 3 · Telethon · Flask · aiohttp · async services",
         ],
     },
     {
@@ -81,6 +117,7 @@ PANELS = [
         "accent": "#9a83f5",
         "icons": [
             ("PostgreSQL", "postgresql", "#4169E1"),
+            ("asyncpg", "asyncpg", "#5BA4CF"),
             ("Redis", "redis", "#FF4438"),
             ("SQLite", "sqlite", "#5BA4CF"),
             ("Liquibase", "liquibase", "#2962FF"),
@@ -88,9 +125,9 @@ PANELS = [
             ("QueryDSL", "querydsl", "#D8B4FE"),
         ],
         "lines": [
-            "PostgreSQL 14–16 · Redis · SQLite · JDBC · asyncpg",
+            "PostgreSQL 14–17 · Redis · SQLite · JDBC · asyncpg",
             "QueryDSL · Liquibase · Flyway · migrations · durable state",
-            "transactional workflows · queues · backup / restore",
+            "transactional workflows · queues · backup / restore · query stats",
         ],
     },
     {
@@ -100,13 +137,15 @@ PANELS = [
             ("Gradle", "gradle", "#8DD6F9"),
             ("Maven", "apachemaven", "#C71A36"),
             ("JUnit", "junit5", "#25A162"),
+            ("Mockito", "mockito", "#a98df8"),
+            ("T-containers", "testcontainers", "#8DD6F9"),
             ("pytest", "pytest", "#0A9EDC"),
             ("Ruff", "ruff", "#D7FF64"),
             ("Actions", "githubactions", "#2088FF"),
         ],
         "lines": [
             "JUnit 5 · Mockito · Spring Test · Testcontainers · pytest",
-            "Ruff · CI/CD · security gates · regression verification",
+            "unittest · Ruff · CI/CD · security gates · regression checks",
             "QA automation · secret scanning · fail-closed delivery",
         ],
     },
@@ -120,11 +159,12 @@ PANELS = [
             ("Git", "git", "#F05032"),
             ("IntelliJ", "intellijidea", "#F5F5F5"),
             ("systemd", "systemd", "#D8B4FE"),
+            ("SSH tunnel", "sshtunnel", "#8f7cf7"),
         ],
         "lines": [
             "Docker Compose · Linux · systemd · GHCR · GitHub Actions",
             "Redroid · ADB · Frida · SSH tunnels · PowerShell",
-            "production deploy · rollback · observability · Trivy / SBOM",
+            "non-root containers · rollback · backup / restore · Trivy / SBOM",
         ],
     },
     {
@@ -135,6 +175,7 @@ PANELS = [
             ("Ollama", "ollama", "#F5F5F5"),
             ("Qwen VL", "alibabacloud", "#FF6A00"),
             ("Pillow", "pillow", "#65B8C2"),
+            ("crypto", "cryptography", "#d8b4fe"),
             ("PyYAML", "yaml", "#CB171E"),
             ("mitmproxy", "mitmproxy", "#D8B4FE"),
         ],
@@ -161,24 +202,35 @@ def fetch_simple_icon(slug: str) -> str:
     return match.group(1)
 
 
-def icon_markup(name: str, slug: str, color: str, x: float, y: float) -> str:
+def icon_markup(
+    name: str,
+    slug: str,
+    color: str,
+    x: float,
+    y: float,
+    card_width: float,
+    icon_scale: float,
+    label_size: float,
+) -> str:
     safe_name = html.escape(name)
     parts = [
         f'<g transform="translate({x:.1f} {y:.1f})">',
-        '<rect width="50" height="62" rx="13" fill="#171423" stroke="#3c3050"/>',
+        f'<rect width="{card_width}" height="62" rx="13" fill="#171423" stroke="#3c3050"/>',
     ]
+    icon_size = 24 * icon_scale
+    icon_x = (card_width - icon_size) / 2
     custom = CUSTOM_ICONS.get(slug)
     if custom:
         parts.append(
-            f'<g transform="translate(10 8) scale(1.25)">{custom.format(color=color)}</g>'
+            f'<g transform="translate({icon_x:.2f} 8) scale({icon_scale})">{custom.format(color=color)}</g>'
         )
     else:
         path = fetch_simple_icon(slug)
         parts.append(
-            f'<g transform="translate(10 8) scale(1.25)"><path d="{path}" fill="{color}"/></g>'
+            f'<g transform="translate({icon_x:.2f} 8) scale({icon_scale})"><path d="{path}" fill="{color}"/></g>'
         )
     parts.extend([
-        f'<text x="25" y="54" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.2">{safe_name}</text>',
+        f'<text x="{card_width / 2:.2f}" y="54" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="{label_size}">{safe_name}</text>',
         '</g>',
     ])
     return "".join(parts)
@@ -223,7 +275,7 @@ def build() -> str:
         '<circle cx="69" cy="43" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
         '<circle cx="842" cy="46" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
         '<text x="46" y="47" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
-        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">LIVE STACK · 6 DOMAINS</text>',
+        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">VERIFIED STACK · 6 DOMAINS</text>',
         '<rect x="742" y="60" width="132" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="742;782;742" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="132;92;132" dur="5s" repeatCount="indefinite"/></rect>',
     ]
 
@@ -241,10 +293,28 @@ def build() -> str:
             '<circle cx="382" cy="23" r="1.7" fill="#c4a5ef"><animate attributeName="opacity" values=".2;1;.2" dur="4s" repeatCount="indefinite"/></circle>',
         ])
         icons = panel["icons"]
-        step = 61.0
-        start_x = 25.0
+        icon_count = len(icons)
+        if icon_count <= 6:
+            card_width, gap, icon_scale, label_size = 50.0, 11.0, 1.25, 7.2
+        elif icon_count == 7:
+            card_width, gap, icon_scale, label_size = 48.0, 5.0, 1.2, 6.7
+        else:
+            card_width, gap, icon_scale, label_size = 44.0, 3.0, 1.1, 6.05
+        row_width = icon_count * card_width + (icon_count - 1) * gap
+        start_x = (panel_w - row_width) / 2
         for j, (name, slug, color) in enumerate(icons):
-            svg.append(icon_markup(name, slug, color, start_x + j * step, 48))
+            svg.append(
+                icon_markup(
+                    name,
+                    slug,
+                    color,
+                    start_x + j * (card_width + gap),
+                    48,
+                    card_width,
+                    icon_scale,
+                    label_size,
+                )
+            )
         svg.append(animated_lines(panel["lines"], 154))
         svg.append('</g>')
 
