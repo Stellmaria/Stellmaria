@@ -10,7 +10,7 @@
 
 <br>
 
-<img src="./assets/dev-signature.svg" width="100%" alt="Developer signature" />
+<img src="./assets/dev-signature.svg" width="100%" alt="Animated developer signature" />
 
 <br>
 
@@ -24,11 +24,7 @@
 
 <br>
 
-<img src="https://komarev.com/ghpvc/?username=Stellmaria&label=TRACKED%20PROFILE%20VIEWS&color=7c3aed&style=for-the-badge" alt="Tracked profile views" />
-
-<br><br>
-
-<sub>GitHub does not expose historical all-time profile views; this counter tracks visits from the moment it was enabled.</sub>
+<img src="https://komarev.com/ghpvc/?username=Stellmaria&label=PROFILE%20VIEWS&color=7c3aed&style=for-the-badge" alt="Profile views" />
 
 </div>
 
