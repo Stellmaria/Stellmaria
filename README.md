@@ -61,7 +61,7 @@
 <img src="https://komarev.com/ghpvc/?username=Stellmaria&label=PROFILE%20VIEWS&color=7c3aed&style=for-the-badge" alt="Profile views" />
 <img src="https://img.shields.io/github/followers/Stellmaria?label=FOLLOWERS&style=for-the-badge&logo=github&color=7c3aed&labelColor=0d1117" alt="GitHub followers" />
 <img src="https://img.shields.io/badge/PUBLIC%20REPOS-11-7c3aed?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="Public repositories" />
-<img src="https://img.shields.io/badge/GITHUB%20SINCE-2022-7c3aed?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="GitHub since 2022" />
+<img src="https://img.shields.io/badge/TOTAL%20REPOS-15-7c3aed?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="Total repositories" />
 
 </div>
 
