@@ -32,33 +32,15 @@ jobs:
       - name: Build animated toolkit
         run: python scripts/build_engineering_toolkit.py
 
-      - name: Sanitize and validate SVG
+      - name: Validate SVG
         run: |
           python - <<'PY'
-          from pathlib import Path
-          import re
           import xml.etree.ElementTree as ET
-
-          path = Path("assets/engineering-toolkit-live.svg")
-          svg = path.read_text(encoding="utf-8")
-          svg = re.sub(
-              r"&(?![A-Za-z][A-Za-z0-9]+;|#\d+;|#x[0-9A-Fa-f]+;)",
-              "&amp;",
-              svg,
-          )
-          root_marker = '<svg xmlns="http://www.w3.org/2000/svg"'
-          if 'xmlns:xlink=' not in svg:
-              svg = svg.replace(
-                  root_marker,
-                  root_marker + ' xmlns:xlink="http://www.w3.org/1999/xlink"',
-                  1,
-              )
-          ET.fromstring(svg)
-          path.write_text(svg, encoding="utf-8")
+          ET.parse("assets/engineering-toolkit-live.svg")
           print("engineering-toolkit-live.svg is valid XML")
           PY
 
-      - name: Commit generated toolkit
+      - name: Commit and publish generated toolkit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -68,5 +50,15 @@ jobs:
             exit 0
           fi
           git commit -m "chore(profile): build engineering toolkit [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
+
+          for attempt in 1 2 3 4 5; do
+            echo "Publish attempt ${attempt}/5"
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+
+          echo "Could not publish toolkit after retries."
+          exit 1
