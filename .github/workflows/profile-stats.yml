@@ -29,22 +29,22 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Build profile stats
+      - name: Build profile observatory
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_USERNAME: Stellmaria
         run: python scripts/build_profile_stats.py
 
-      - name: Commit refreshed card
+      - name: Commit refreshed profile cards
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/profile-stats.svg
+          git add assets/profile-stats.svg assets/contribution-observatory.svg
           if git diff --cached --quiet; then
-            echo "Profile stats are already up to date."
+            echo "Profile cards are already up to date."
             exit 0
           fi
-          git commit -m "chore(profile): refresh GitHub pulse"
+          git commit -m "chore(profile): refresh GitHub observatory"
           git fetch origin main
           git rebase origin/main
           git push origin HEAD:main
