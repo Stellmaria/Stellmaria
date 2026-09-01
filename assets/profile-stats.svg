@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="300" viewBox="0 0 920 300" role="img" aria-label="GitHub pulse">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0b0b18"/><stop offset="1" stop-color="#171126"/></linearGradient>
+    <linearGradient id="bar" x1="0" x2="1"><stop stop-color="#c7a2ff"/><stop offset=".55" stop-color="#9575ff"/><stop offset="1" stop-color="#ef9dcc"/></linearGradient>
+  </defs>
+  <rect x="1" y="1" width="918" height="298" rx="24" fill="url(#bg)" stroke="#34254d"/>
+  <text x="42" y="48" fill="#efe6ff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">GITHUB PULSE</text>
+  <text x="42" y="72" fill="#9788ad" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">waiting for the first stats refresh…</text>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace">
+    <g transform="translate(42 100)"><rect width="194" height="76" rx="16" fill="#141222" stroke="#392a53"/><text x="18" y="28" fill="#9d8caf" font-size="11">PUBLIC REPOS</text><text x="18" y="57" fill="#f1e8ff" font-size="25" font-weight="700">…</text></g>
+    <g transform="translate(248 100)"><rect width="194" height="76" rx="16" fill="#141222" stroke="#392a53"/><text x="18" y="28" fill="#9d8caf" font-size="11">FOLLOWERS</text><text x="18" y="57" fill="#f1e8ff" font-size="25" font-weight="700">…</text></g>
+    <g transform="translate(454 100)"><rect width="194" height="76" rx="16" fill="#141222" stroke="#392a53"/><text x="18" y="28" fill="#9d8caf" font-size="11">TOTAL STARS</text><text x="18" y="57" fill="#f1e8ff" font-size="25" font-weight="700">…</text></g>
+    <g transform="translate(660 100)"><rect width="216" height="76" rx="16" fill="#141222" stroke="#392a53"/><text x="18" y="28" fill="#9d8caf" font-size="11">YEAR CONTRIBUTIONS</text><text x="18" y="57" fill="#f1e8ff" font-size="25" font-weight="700">…</text></g>
+  </g>
+  <text x="42" y="214" fill="#cdbbea" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" font-weight="700">TOP PUBLIC LANGUAGES</text>
+  <rect x="42" y="232" width="834" height="14" rx="7" fill="#211a31"/>
+  <rect x="42" y="232" width="834" height="14" rx="7" fill="url(#bar)" opacity=".22"/>
+  <text x="42" y="274" fill="#7f718f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">generated locally by this profile repository · no third-party stats service</text>
+</svg>
