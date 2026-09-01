@@ -105,7 +105,6 @@ def txt(x: int, y: int, value: str, *, size: int, fill: str, weight: int = 400, 
 
 def build_svg() -> str:
     user, repos, languages = fetch_profile()
-    stars = sum(int(repo.get("stargazers_count", 0)) for repo in repos)
     contributions = contribution_total()
     updated = datetime.now(UTC).strftime("%Y-%m-%d")
 
@@ -114,7 +113,7 @@ def build_svg() -> str:
     metrics = [
         ("PUBLIC REPOS", str(int(user.get("public_repos", len(repos))))),
         ("FOLLOWERS", str(int(user.get("followers", 0)))),
-        ("TOTAL STARS", str(stars)),
+        ("FOLLOWING", str(int(user.get("following", 0)))),
         ("YEAR CONTRIBUTIONS", f"{contributions:,}" if contributions is not None else "public"),
     ]
 
