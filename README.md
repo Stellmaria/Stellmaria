@@ -4,18 +4,7 @@
 
 <br>
 
-<h1>Stellmaria</h1>
-
-<sub>☾ Java Backend Developer · systems · data · infrastructure · automation ☾</sub>
-
-<br><br>
-
-Backend developer drawn to clean boundaries, resilient services and production systems<br>
-that remain understandable after the interesting part is over.
-
-<br><br>
-
-<code>code</code> · <code>dream</code> · <code>create</code>
+<img src="./assets/intro-live.svg" width="100%" alt="Stellmaria — animated developer introduction" />
 
 </div>
 
@@ -25,19 +14,56 @@ that remain understandable after the interesting part is over.
 
 <br>
 
-<img src="./assets/tech-stack.svg" width="100%" alt="Engineering toolkit across public and private work" />
+<div align="center">
+
+## Engineering Toolkit
+
+<sub>backend · data · platform · delivery</sub>
+
+<br><br>
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="48" height="48" title="Java" alt="Java" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg" width="48" height="48" title="Spring" alt="Spring" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" width="48" height="48" title="Python" alt="Python" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg" width="48" height="48" title="OpenAPI / REST" alt="OpenAPI" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" width="48" height="48" title="PostgreSQL" alt="PostgreSQL" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg" width="48" height="48" title="Redis" alt="Redis" />
+
+<br><br>
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width="48" height="48" title="Docker" alt="Docker" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="48" height="48" title="Linux" alt="Linux" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" width="48" height="48" title="Git" alt="Git" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg" width="48" height="48" title="GitHub Actions" alt="GitHub Actions" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/telegram/telegram-original.svg" width="48" height="48" title="Telegram API" alt="Telegram" />&nbsp;&nbsp;&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" width="48" height="48" title="IntelliJ IDEA" alt="IntelliJ IDEA" />
+
+<br><br>
+
+<sub>Java · Spring · Python · REST/OpenAPI · PostgreSQL · Redis · Docker · Linux · Git · GitHub Actions · Telegram API · IntelliJ IDEA</sub>
+
+<br><br>
+
+<code>systemd</code> · <code>CI/CD</code> · <code>QA automation</code> · <code>security gates</code> · <code>observability</code> · <code>production deploys</code>
+
+</div>
 
 <br>
 
-<img src="./assets/private-footprint.svg" width="100%" alt="Privacy-safe private engineering footprint" />
+<div align="center">
 
-<br>
+## Profile Statistics
 
-<img src="./assets/profile-stats.svg" width="100%" alt="GitHub pulse" />
+<sub>compact live signals instead of another dashboard</sub>
 
-<br>
+<br><br>
 
-<img src="./assets/contribution-observatory.svg" width="100%" alt="Rolling contribution observatory" />
+<img src="https://komarev.com/ghpvc/?username=Stellmaria&label=PROFILE%20VIEWS&color=7c3aed&style=for-the-badge" alt="Profile views" />
+<img src="https://img.shields.io/github/followers/Stellmaria?label=FOLLOWERS&style=for-the-badge&logo=github&color=7c3aed&labelColor=0d1117" alt="GitHub followers" />
+<img src="https://img.shields.io/badge/PUBLIC%20REPOS-11-7c3aed?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="Public repositories" />
+<img src="https://img.shields.io/badge/GITHUB%20SINCE-2022-7c3aed?style=for-the-badge&logo=github&logoColor=white&labelColor=0d1117" alt="GitHub since 2022" />
+
+</div>
 
 <br>
 
