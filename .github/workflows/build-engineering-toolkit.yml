@@ -32,6 +32,25 @@ jobs:
       - name: Build animated toolkit
         run: python scripts/build_engineering_toolkit.py
 
+      - name: Sanitize and validate SVG
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import xml.etree.ElementTree as ET
+
+          path = Path("assets/engineering-toolkit-live.svg")
+          svg = path.read_text(encoding="utf-8")
+          svg = re.sub(
+              r"&(?![A-Za-z][A-Za-z0-9]+;|#\d+;|#x[0-9A-Fa-f]+;)",
+              "&amp;",
+              svg,
+          )
+          ET.fromstring(svg)
+          path.write_text(svg, encoding="utf-8")
+          print("engineering-toolkit-live.svg is valid XML")
+          PY
+
       - name: Commit generated toolkit
         run: |
           git config user.name "github-actions[bot]"
