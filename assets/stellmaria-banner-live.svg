@@ -27,7 +27,22 @@
     <circle cx="903" cy="590" r="74" fill="url(#moonGlow)" opacity=".04"><animate attributeName="opacity" values=".02;.26;.06;.22;.02" dur="3.8s" repeatCount="indefinite"/></circle>
   </g>
   <g aria-label="glowing hoodie crescent" filter="url(#softGlow)">
-    <circle cx="1655" cy="557" r="78" fill="url(#moonGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.4;.1;.48;.04" dur="4.8s" repeatCount="indefinite"/></circle>
+    <circle cx="1668" cy="558" r="88" fill="url(#moonGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.46;.1;.52;.04" dur="5.6s" repeatCount="indefinite"/></circle>
+  </g>
+  <g aria-label="hoodie constellation" filter="url(#softGlow)" fill="#f5d7ff">
+    <circle cx="1609" cy="508" r="22" opacity=".04"><animate attributeName="opacity" values=".03;.22;.06;.03" dur="9s" begin="0s" repeatCount="indefinite"/></circle>
+    <circle cx="1710" cy="498" r="20" opacity=".04"><animate attributeName="opacity" values=".03;.22;.06;.03" dur="9s" begin="-1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="1595" cy="539" r="16" opacity=".03"><animate attributeName="opacity" values=".02;.2;.06;.02" dur="9s" begin="-3s" repeatCount="indefinite"/></circle>
+    <circle cx="1592" cy="562" r="20" opacity=".04"><animate attributeName="opacity" values=".03;.22;.06;.03" dur="9s" begin="-4.5s" repeatCount="indefinite"/></circle>
+    <circle cx="1606" cy="613" r="21" opacity=".04"><animate attributeName="opacity" values=".03;.22;.06;.03" dur="9s" begin="-6s" repeatCount="indefinite"/></circle>
+    <circle cx="1642" cy="647" r="22" opacity=".04"><animate attributeName="opacity" values=".03;.22;.06;.03" dur="9s" begin="-7.5s" repeatCount="indefinite"/></circle>
+  </g>
+  <g aria-label="city beacon and windows" filter="url(#softGlow)" fill="#e5c6ff">
+    <circle cx="1857" cy="96" r="24" opacity=".03"><animate attributeName="opacity" values=".02;.24;.06;.02" dur="8.5s" repeatCount="indefinite"/></circle>
+    <circle cx="1916" cy="250" r="5" opacity=".04"><animate attributeName="opacity" values=".02;.4;.06;.02" dur="12s" begin="-2s" repeatCount="indefinite"/></circle>
+    <circle cx="1930" cy="250" r="5" opacity=".04"><animate attributeName="opacity" values=".02;.4;.06;.02" dur="12s" begin="-5s" repeatCount="indefinite"/></circle>
+    <circle cx="1945" cy="250" r="5" opacity=".04"><animate attributeName="opacity" values=".02;.4;.06;.02" dur="12s" begin="-8s" repeatCount="indefinite"/></circle>
+    <circle cx="1916" cy="270" r="5" opacity=".04"><animate attributeName="opacity" values=".02;.4;.06;.02" dur="12s" begin="-10s" repeatCount="indefinite"/></circle>
   </g>
   <g aria-label="animated moon globe" filter="url(#softGlow)">
     <circle cx="2055" cy="505" r="112" fill="url(#moonGlow)" opacity=".14"><animate attributeName="opacity" values=".08;.56;.16;.62;.08" dur="5.5s" repeatCount="indefinite"/></circle>
