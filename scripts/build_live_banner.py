@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -16,13 +17,12 @@ HEIGHT = 724
 
 def falling_rain() -> str:
     drops = (
-        (1450, 28, 42, 5.4, 0.0), (1516, 66, 50, 6.2, 1.1),
-        (1648, 18, 36, 5.8, 2.2), (1718, 44, 54, 6.6, 0.7),
-        (1787, 20, 44, 5.1, 3.0), (1852, 78, 38, 6.0, 1.8),
-        (1930, 35, 58, 5.5, 2.7), (1990, 91, 42, 6.4, 0.4),
-        (1608, 160, 40, 5.9, 1.4), (1695, 132, 52, 6.3, 2.5),
-        (1775, 184, 36, 5.6, 0.9), (1874, 146, 48, 6.1, 3.4),
-        (1958, 178, 34, 5.3, 2.0),
+        (1462, 16, 42, 5.4, 0.0), (1528, 40, 50, 6.2, 1.1),
+        (1626, 18, 36, 5.8, 2.2), (1735, 22, 54, 6.6, 0.7),
+        (1795, 12, 44, 5.1, 3.0), (1860, 46, 38, 6.0, 1.8),
+        (1925, 26, 58, 5.5, 2.7), (1985, 40, 42, 6.4, 0.4),
+        (1698, 112, 40, 5.9, 1.4), (1778, 106, 52, 6.3, 2.5),
+        (1860, 118, 36, 5.6, 0.9), (1950, 108, 48, 6.1, 3.4),
     )
     return "".join(
         f'<line x1="{x}" y1="{y}" x2="{x - 8}" y2="{y + length}" '
@@ -51,25 +51,47 @@ def steam() -> str:
 
 def build() -> str:
     encoded_banner = base64.b64encode(SOURCE.read_bytes()).decode("ascii")
+    minsk_time = datetime.now(timezone(timedelta(hours=3))).strftime("%H:%M")
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Animated Stellmaria late-night coding scene">
   <defs>
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <radialGradient id="neonPulse"><stop stop-color="#e9bcff" stop-opacity=".34"/><stop offset=".52" stop-color="#b564ff" stop-opacity=".08"/><stop offset="1" stop-color="#9d55ff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="moonGlow"><stop stop-color="#f1d6ff" stop-opacity=".55"/><stop offset=".38" stop-color="#b66eff" stop-opacity=".22"/><stop offset="1" stop-color="#8044d5" stop-opacity="0"/></radialGradient>
+    <clipPath id="windowOnly"><path d="M1436 0H1902V92H1436ZM1674 101H1902V315H1787V217H1674Z"/></clipPath>
   </defs>
   <image width="{WIDTH}" height="{HEIGHT}" href="data:image/png;base64,{encoded_banner}"/>
-  <g aria-label="ambient rain">{falling_rain()}</g>
+  <g aria-label="ambient rain" clip-path="url(#windowOnly)">{falling_rain()}</g>
   <g aria-label="rising steam" filter="url(#softGlow)">{steam()}</g>
   <ellipse cx="388" cy="228" rx="390" ry="166" fill="url(#neonPulse)" opacity=".12">
     <animate attributeName="opacity" values=".08;.18;.1;.16;.08" dur="8s" repeatCount="indefinite"/>
   </ellipse>
-  <g filter="url(#softGlow)">
-    <circle cx="117" cy="86" r="10" fill="#f3d6ff" opacity=".16"><animate attributeName="opacity" values=".08;.42;.12;.34;.08" dur="5.4s" repeatCount="indefinite"/></circle>
-    <circle cx="667" cy="101" r="12" fill="#f3d6ff" opacity=".16"><animate attributeName="opacity" values=".08;.35;.12;.48;.08" dur="6.2s" begin="-1.4s" repeatCount="indefinite"/></circle>
-    <circle cx="713" cy="316" r="7" fill="#f3d6ff" opacity=".12"><animate attributeName="opacity" values=".06;.45;.08;.3;.06" dur="4.8s" begin="-2s" repeatCount="indefinite"/></circle>
+  <g aria-label="twinkling stars" fill="#f8dfff" filter="url(#softGlow)">
+    <path d="M117 67l5 14 14 5-14 5-5 14-5-14-14-5 14-5Z" opacity=".14"><animate attributeName="opacity" values=".1;.78;.18;.66;.1" dur="3.6s" repeatCount="indefinite"/></path>
+    <path d="M667 78l6 17 17 6-17 6-6 17-6-17-17-6 17-6Z" opacity=".14"><animate attributeName="opacity" values=".12;.7;.14;.9;.12" dur="4.1s" begin="-1.1s" repeatCount="indefinite"/></path>
+    <path d="M713 303l4 11 11 4-11 4-4 11-4-11-11-4 11-4Z" opacity=".12"><animate attributeName="opacity" values=".08;.8;.1;.55;.08" dur="3.2s" begin="-2s" repeatCount="indefinite"/></path>
   </g>
-  <path d="M1412 267 Q1427 280 1444 267" fill="none" stroke="#1c1720" stroke-width="10" stroke-linecap="round" opacity="0">
-    <animate attributeName="opacity" values="0;0;0;.82;.82;0;0" keyTimes="0;.62;.66;.675;.695;.715;1" dur="11s" repeatCount="indefinite"/>
-  </path>
+  <g aria-label="cat blink">
+    <path d="M1412 267 Q1427 280 1444 267" fill="none" stroke="#1c1720" stroke-width="10" stroke-linecap="round" opacity="0">
+      <animate attributeName="opacity" values="0;0;.88;.88;0;0;.88;.88;0" keyTimes="0;.2;.225;.25;.275;.61;.635;.66;1" dur="5.8s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <g aria-label="cat ear movement" fill="none" stroke="#f1a8b3" stroke-linecap="round" opacity=".2">
+    <path d="M1410 108Q1431 130 1451 179" stroke-width="3"><animateTransform attributeName="transform" type="rotate" values="0 1428 145;1.2 1428 145;0 1428 145" dur="3.8s" repeatCount="indefinite"/></path>
+    <path d="M1510 153Q1535 135 1554 176" stroke-width="2.5"><animateTransform attributeName="transform" type="rotate" values="0 1532 155;-1.4 1532 155;0 1532 155" dur="4.6s" begin="-1.2s" repeatCount="indefinite"/></path>
+  </g>
+  <g aria-label="animated moon" filter="url(#softGlow)">
+    <circle cx="2030" cy="492" r="91" fill="url(#moonGlow)" opacity=".12"><animate attributeName="opacity" values=".08;.35;.15;.42;.08" dur="5.5s" repeatCount="indefinite"/></circle>
+    <circle cx="2030" cy="492" r="57" fill="none" stroke="#dfbbff" stroke-width="2" opacity=".15"><animate attributeName="opacity" values=".08;.48;.12;.38;.08" dur="4.6s" begin="-1.5s" repeatCount="indefinite"/></circle>
+  </g>
+  <g aria-label="blinking caption" fill="#e2c6ff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
+    <text x="437" y="383" font-size="38" opacity=".05">code • dream • create<animate attributeName="opacity" values=".02;.38;.06;.28;.02" dur="4.4s" repeatCount="indefinite"/></text>
+    <text x="438" y="426" font-size="21" opacity=".04">Building dreams, one commit at a time.<animate attributeName="opacity" values=".02;.3;.05;.24;.02" dur="5.3s" begin="-1.3s" repeatCount="indefinite"/></text>
+  </g>
+  <g aria-label="Minsk time" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
+    <rect x="1154" y="500" width="112" height="54" rx="7" fill="#0b0d26" opacity=".76"/>
+    <text x="1210" y="538" fill="#b986ff" font-size="29" font-weight="700">{minsk_time}</text>
+    <circle cx="1170" cy="512" r="2" fill="#edc1ff"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></circle>
+  </g>
 </svg>'''
     ET.fromstring(svg)
     return svg
