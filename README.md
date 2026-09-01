@@ -33,8 +33,4 @@ and interfaces that stay out of the way.
 
 <br>
 
-<div align="center">
-
-<sub>✦ less noise · better systems · one thoughtful commit at a time ✦</sub>
-
-</div>
+<img src="./assets/afterglow.svg" width="100%" alt="Code dream create" />
