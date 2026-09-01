@@ -1,46 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="260" viewBox="0 0 920 260" role="img" aria-label="Engineering toolkit">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-label="Engineering toolkit">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a0a15"/><stop offset=".55" stop-color="#11101f"/><stop offset="1" stop-color="#181126"/></linearGradient>
     <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".48" stop-color="#9a83f5"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>
     <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect x="1" y="1" width="918" height="258" rx="26" fill="url(#bg)" stroke="#352847"/>
-  <circle cx="52" cy="39" r="2" fill="#d5b4ff"/><circle cx="850" cy="40" r="1.5" fill="#efa5d1"/><circle cx="884" cy="214" r="2" fill="#8e76ca"/>
+  <rect x="1" y="1" width="918" height="358" rx="26" fill="url(#bg)" stroke="#352847"/>
+  <circle cx="52" cy="39" r="2" fill="#d5b4ff"/><circle cx="850" cy="40" r="1.5" fill="#efa5d1"/><circle cx="884" cy="314" r="2" fill="#8e76ca"/>
   <text x="42" y="48" fill="#f4edff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="17" font-weight="700">ENGINEERING TOOLKIT</text>
-  <text x="42" y="72" fill="#8f829f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">the tools I reach for when ideas become systems</text>
+  <text x="42" y="72" fill="#8f829f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">languages, platforms and delivery systems across public + private work</text>
 
   <g transform="translate(42 98)">
-    <rect width="258" height="112" rx="18" fill="#141221" stroke="#382c4b"/>
-    <text x="18" y="28" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">CORE</text>
-    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">
-      <rect x="18" y="43" width="82" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="59" y="63" text-anchor="middle" fill="#eee4fa">Java</text>
-      <rect x="108" y="43" width="94" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="155" y="63" text-anchor="middle" fill="#eee4fa">Spring</text>
-      <rect x="18" y="80" width="94" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="65" y="100" text-anchor="middle" fill="#eee4fa">Python</text>
-      <rect x="120" y="80" width="64" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="152" y="100" text-anchor="middle" fill="#eee4fa">Git</text>
-    </g>
+    <rect width="402" height="104" rx="18" fill="#141221" stroke="#382c4b"/>
+    <text x="18" y="28" fill="#c3addf" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">BACKEND</text>
+    <text x="18" y="56" fill="#f0e7fa" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="600">Java · Spring · Python · REST APIs</text>
+    <text x="18" y="82" fill="#9e90ad" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">async services · integrations · Telegram automation</text>
   </g>
 
-  <g transform="translate(331 98)">
-    <rect width="258" height="112" rx="18" fill="#141221" stroke="#382c4b"/>
-    <text x="18" y="28" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">DATA</text>
-    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">
-      <rect x="18" y="43" width="132" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="84" y="63" text-anchor="middle" fill="#eee4fa">PostgreSQL</text>
-      <rect x="158" y="43" width="82" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="199" y="63" text-anchor="middle" fill="#eee4fa">Redis</text>
-      <rect x="18" y="80" width="88" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="62" y="100" text-anchor="middle" fill="#eee4fa">SQL</text>
-      <rect x="114" y="80" width="126" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="177" y="100" text-anchor="middle" fill="#eee4fa">PL/pgSQL</text>
-    </g>
+  <g transform="translate(476 98)">
+    <rect width="402" height="104" rx="18" fill="#141221" stroke="#382c4b"/>
+    <text x="18" y="28" fill="#c3addf" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">DATA &amp; STATE</text>
+    <text x="18" y="56" fill="#f0e7fa" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="600">PostgreSQL · SQL · PL/pgSQL · Redis</text>
+    <text x="18" y="82" fill="#9e90ad" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">migrations · durable queues · transactional workflows</text>
   </g>
 
-  <g transform="translate(620 98)">
-    <rect width="258" height="112" rx="18" fill="#141221" stroke="#382c4b"/>
-    <text x="18" y="28" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">PLATFORM</text>
-    <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">
-      <rect x="18" y="43" width="92" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="64" y="63" text-anchor="middle" fill="#eee4fa">Docker</text>
-      <rect x="118" y="43" width="82" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="159" y="63" text-anchor="middle" fill="#eee4fa">Linux</text>
-      <rect x="18" y="80" width="96" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="66" y="100" text-anchor="middle" fill="#eee4fa">GitHub</text>
-      <rect x="122" y="80" width="106" height="30" rx="10" fill="#1b172a" stroke="#4b3a61"/><text x="175" y="100" text-anchor="middle" fill="#eee4fa">IntelliJ</text>
-    </g>
+  <g transform="translate(42 220)">
+    <rect width="402" height="104" rx="18" fill="#141221" stroke="#382c4b"/>
+    <text x="18" y="28" fill="#c3addf" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">PLATFORM</text>
+    <text x="18" y="56" fill="#f0e7fa" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="600">Docker · Linux · systemd · GitHub Actions</text>
+    <text x="18" y="82" fill="#9e90ad" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">self-hosted CI · production deploys · rollback boundaries</text>
   </g>
 
-  <rect x="42" y="236" width="836" height="2" rx="1" fill="url(#accent)" opacity=".46" filter="url(#glow)"/>
+  <g transform="translate(476 220)">
+    <rect width="402" height="104" rx="18" fill="#141221" stroke="#382c4b"/>
+    <text x="18" y="28" fill="#c3addf" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">QUALITY &amp; OPERATIONS</text>
+    <text x="18" y="56" fill="#f0e7fa" font-family="Inter,Segoe UI,sans-serif" font-size="14" font-weight="600">Tests · CI/CD · security gates · QA automation</text>
+    <text x="18" y="82" fill="#9e90ad" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">observability · review flows · fail-closed verification</text>
+  </g>
+
+  <rect x="42" y="344" width="836" height="2" rx="1" fill="url(#accent)" opacity=".46" filter="url(#glow)"/>
 </svg>
