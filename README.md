@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/stellmaria-banner-hd.png" width="100%" alt="Stellmaria — late-night coding" />
+  <img src="./assets/stellmaria-banner-live.svg" width="100%" alt="Stellmaria — animated late-night coding scene" />
 </p>
 
 <br />
