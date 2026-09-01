@@ -6,11 +6,13 @@ import urllib.request
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets" / "profile-metrics-live.svg"
 USERNAME = os.environ.get("PROFILE_USERNAME", "Stellmaria")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
+TIMEZONE = ZoneInfo(os.environ.get("PROFILE_TIMEZONE", "Europe/Minsk"))
 API = "https://api.github.com"
 
 
@@ -110,6 +112,7 @@ def build() -> str:
     profile = request_json(f"{API}/users/{USERNAME}")
     created = datetime.fromisoformat(str(profile["created_at"]).replace("Z", "+00:00"))
     now = datetime.now(UTC)
+    local_now = now.astimezone(TIMEZONE)
     first_year = created.year
     totals: dict[int, int] = {}
     all_days: dict[date, int] = {}
@@ -126,9 +129,9 @@ def build() -> str:
         all_days.update(days)
 
     total_all = sum(totals.values())
-    current, longest = streaks(all_days, now.date())
+    current, longest = streaks(all_days, local_now.date())
     followers = int(profile.get("followers", 0))
-    refreshed = now.strftime("%Y-%m-%d")
+    refreshed = local_now.strftime("%Y-%m-%d · %H:%M Minsk")
 
     svg: list[str] = [
         '<svg xmlns="http://www.w3.org/2000/svg" width="920" height="300" viewBox="0 0 920 300" role="img" aria-label="GitHub contribution metrics since 2022">',

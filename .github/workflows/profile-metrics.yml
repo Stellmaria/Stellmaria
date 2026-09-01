@@ -8,7 +8,8 @@ on:
       - ".github/workflows/profile-metrics.yml"
   workflow_dispatch:
   schedule:
-    - cron: "23 */3 * * *"
+    # GitHub Actions cron runs in UTC. Minsk is UTC+3 year-round.
+    - cron: "0 21 * * *"
 
 permissions:
   contents: write
@@ -35,6 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_USERNAME: Stellmaria
+          PROFILE_TIMEZONE: Europe/Minsk
         run: python scripts/build_profile_metrics.py
 
       - name: Validate metrics SVG
