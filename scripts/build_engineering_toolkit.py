@@ -19,13 +19,13 @@ PANELS = [
             ("Python", "python", "#3776AB"),
             ("JavaScript", "javascript", "#F7DF1E"),
             ("HTML5", "html5", "#E34F26"),
-            ("CSS", "css", "#663399"),
+            ("CSS3", "css", "#663399"),
             ("PowerShell", "powershell", "#5391FE"),
         ],
         "lines": [
             "Java 17 · Python 3.13 · JavaScript · SQL / PLpgSQL",
             "HTML5 · CSS3 · Bash · PowerShell · automation scripts",
-            "backend-first engineering across public and private work",
+            "backend-first engineering across production and study work",
         ],
     },
     {
@@ -34,6 +34,7 @@ PANELS = [
         "icons": [
             ("Spring", "spring", "#6DB33F"),
             ("Hibernate", "hibernate", "#59666C"),
+            ("Thymeleaf", "thymeleaf", "#005F0F"),
             ("OpenAPI", "openapiinitiative", "#6BA539"),
             ("Telegram", "telegram", "#26A5E4"),
             ("Flask", "flask", "#F5F5F5"),
@@ -52,11 +53,13 @@ PANELS = [
             ("Redis", "redis", "#FF4438"),
             ("SQLite", "sqlite", "#5BA4CF"),
             ("Liquibase", "liquibase", "#2962FF"),
+            ("Flyway", "flyway", "#CC0200"),
+            ("QueryDSL", "querydsl", "#D8B4FE"),
         ],
         "lines": [
             "PostgreSQL 14–16 · Redis · SQLite · JDBC · asyncpg",
-            "QueryDSL · Liquibase · Flyway · migrations",
-            "durable state · transactional workflows · backup / restore",
+            "QueryDSL · Liquibase · Flyway · migrations · durable state",
+            "transactional workflows · queues · backup / restore",
         ],
     },
     {
@@ -66,12 +69,14 @@ PANELS = [
             ("Gradle", "gradle", "#8DD6F9"),
             ("Maven", "apachemaven", "#C71A36"),
             ("JUnit", "junit5", "#25A162"),
+            ("pytest", "pytest", "#0A9EDC"),
+            ("Ruff", "ruff", "#D7FF64"),
             ("Actions", "githubactions", "#2088FF"),
         ],
         "lines": [
-            "JUnit 5 · Mockito · Spring Test · Testcontainers",
-            "unittest · pytest · Ruff · CI/CD · security gates",
-            "QA automation · secret scanning · fail-closed verification",
+            "JUnit 5 · Mockito · Spring Test · Testcontainers · pytest",
+            "Ruff · CI/CD · security gates · regression verification",
+            "QA automation · secret scanning · fail-closed delivery",
         ],
     },
     {
@@ -83,6 +88,7 @@ PANELS = [
             ("Android", "android", "#3DDC84"),
             ("Git", "git", "#F05032"),
             ("IntelliJ", "intellijidea", "#F5F5F5"),
+            ("systemd", "systemd", "#D8B4FE"),
         ],
         "lines": [
             "Docker Compose · Linux · systemd · GHCR · GitHub Actions",
@@ -96,6 +102,10 @@ PANELS = [
         "icons": [
             ("OpenAI", "openai", "#F5F5F5"),
             ("Ollama", "ollama", "#F5F5F5"),
+            ("Qwen VL", "alibabacloud", "#FF6A00"),
+            ("Pillow", "python", "#3776AB"),
+            ("PyYAML", "yaml", "#CB171E"),
+            ("mitmproxy", "mitmproxy", "#D8B4FE"),
         ],
         "lines": [
             "OpenAI Responses API · Structured Outputs · image providers",
@@ -130,13 +140,13 @@ def icon_markup(name: str, slug: str, color: str, x: float, y: float) -> str:
             f'<g transform="translate(10 8) scale(1.25)"><path d="{path}" fill="{color}"/></g>'
         )
     else:
-        initial = html.escape(name[:2].upper())
+        initial = html.escape("".join(part[0] for part in name.split()[:2]).upper() or name[:2].upper())
         parts.extend([
-            f'<circle cx="25" cy="24" r="15" fill="{color}" opacity=".18"/>',
-            f'<text x="25" y="28" text-anchor="middle" fill="{color}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">{initial}</text>',
+            f'<circle cx="25" cy="24" r="15" fill="{color}" opacity=".14"/>',
+            f'<text x="25" y="28" text-anchor="middle" fill="{color}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" font-weight="700">{initial}</text>',
         ])
     parts.extend([
-        f'<text x="25" y="54" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.7">{safe_name}</text>',
+        f'<text x="25" y="54" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.2">{safe_name}</text>',
         '</g>',
     ])
     return "".join(parts)
@@ -152,7 +162,7 @@ def animated_lines(lines: list[str], y: float) -> str:
     for line, (values, key_times) in zip(lines, timings):
         out.append(
             f'<text x="202.5" y="{y}" text-anchor="middle" fill="#b9a9c9" '
-            'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9.4" opacity="0">'
+            'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9.15" opacity="0">'
             f'{html.escape(line)}'
             f'<animate attributeName="opacity" values="{values}" keyTimes="{key_times}" dur="12s" repeatCount="indefinite"/>'
             '</text>'
@@ -162,11 +172,11 @@ def animated_lines(lines: list[str], y: float) -> str:
 
 def build() -> str:
     width = 920
-    height = 725
+    height = 700
     panel_w = 405
     panel_h = 176
     left = 42
-    top = 104
+    top = 82
     gap_x = 28
     gap_y = 20
 
@@ -177,13 +187,12 @@ def build() -> str:
         '<linearGradient id="edge" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".5" stop-color="#8f7cf7"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>',
         '<filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>',
         '</defs>',
-        '<rect x="1" y="1" width="918" height="723" rx="28" fill="url(#bg)" stroke="#39294d"/>',
+        '<rect x="1" y="1" width="918" height="698" rx="28" fill="url(#bg)" stroke="#39294d"/>',
         '<circle cx="69" cy="43" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
         '<circle cx="842" cy="46" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
         '<text x="46" y="47" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
-        '<text x="46" y="71" fill="#9f90ae" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5">derived from 15 owned repositories · private names stay private</text>',
-        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">STACK SIGNAL</text>',
-        '<rect x="760" y="61" width="114" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="760;790;760" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="114;84;114" dur="5s" repeatCount="indefinite"/></rect>',
+        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">LIVE STACK · 6 DOMAINS</text>',
+        '<rect x="742" y="60" width="132" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="742;782;742" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="132;92;132" dur="5s" repeatCount="indefinite"/></rect>',
     ]
 
     for idx, panel in enumerate(PANELS):
@@ -200,20 +209,16 @@ def build() -> str:
             '<circle cx="382" cy="23" r="1.7" fill="#c4a5ef"><animate attributeName="opacity" values=".2;1;.2" dur="4s" repeatCount="indefinite"/></circle>',
         ])
         icons = panel["icons"]
-        count = len(icons)
-        if count:
-            total_width = count * 50
-            available_gap = max(0, 355 - total_width)
-            step = 50 + (available_gap / max(1, count - 1))
-            start_x = 25
-            for j, (name, slug, color) in enumerate(icons):
-                svg.append(icon_markup(name, slug, color, start_x + j * step, 48))
+        step = 61.0
+        start_x = 25.0
+        for j, (name, slug, color) in enumerate(icons):
+            svg.append(icon_markup(name, slug, color, start_x + j * step, 48))
         svg.append(animated_lines(panel["lines"], 154))
         svg.append('</g>')
 
     svg.extend([
-        '<rect x="76" y="697" width="768" height="2" rx="1" fill="url(#edge)" opacity=".48" filter="url(#glow)"><animate attributeName="x" values="76;126;76" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="768;668;768" dur="6s" repeatCount="indefinite"/></rect>',
-        '<text x="460" y="714" text-anchor="middle" fill="#776a87" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">systems · data · automation · delivery · AI integration</text>',
+        '<rect x="76" y="671" width="768" height="2" rx="1" fill="url(#edge)" opacity=".48" filter="url(#glow)"><animate attributeName="x" values="76;126;76" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="768;668;768" dur="6s" repeatCount="indefinite"/></rect>',
+        '<text x="460" y="688" text-anchor="middle" fill="#776a87" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">systems · data · automation · delivery · AI integration</text>',
         '</svg>',
     ])
     result = "".join(svg)
