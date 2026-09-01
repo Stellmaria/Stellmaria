@@ -36,15 +36,15 @@ jobs:
         run: |
           python - <<'PY'
           import xml.etree.ElementTree as ET
-          ET.parse("assets/engineering-toolkit-live.svg")
-          print("engineering-toolkit-live.svg is valid XML")
+          ET.parse("assets/engineering-toolkit-v2.svg")
+          print("engineering-toolkit-v2.svg is valid XML")
           PY
 
       - name: Commit and publish generated toolkit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/engineering-toolkit-live.svg
+          git add assets/engineering-toolkit-v2.svg
           if git diff --cached --quiet; then
             echo "Toolkit is already up to date."
             exit 0
