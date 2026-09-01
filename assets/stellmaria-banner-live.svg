@@ -35,7 +35,7 @@
   </g>
   <g aria-label="Minsk time" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
     <rect x="1154" y="500" width="112" height="54" rx="7" fill="#0b0d26" opacity=".76"/>
-    <text x="1210" y="538" fill="#b986ff" font-size="29" font-weight="700">17:28</text>
+    <text x="1210" y="538" fill="#b986ff" font-size="29" font-weight="700">17:29</text>
     <circle cx="1170" cy="512" r="2" fill="#edc1ff"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></circle>
   </g>
 </svg>
