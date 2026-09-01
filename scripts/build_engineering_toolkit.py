@@ -1,13 +1,13 @@
 from __future__ import annotations
 
+import html
 import re
 import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets" / "engineering-toolkit-live.svg"
-
-DEVICON = "https://raw.githubusercontent.com/devicons/devicon/master/icons"
 SIMPLE = "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons"
 
 PANELS = [
@@ -15,44 +15,43 @@ PANELS = [
         "title": "LANGUAGES & WEB",
         "accent": "#d8b4fe",
         "icons": [
-            ("Java", f"{DEVICON}/java/java-original.svg"),
-            ("Python", f"{DEVICON}/python/python-original.svg"),
-            ("JavaScript", f"{DEVICON}/javascript/javascript-original.svg"),
-            ("HTML5", f"{DEVICON}/html5/html5-original.svg"),
-            ("CSS3", f"{DEVICON}/css3/css3-original.svg"),
-            ("Bash", f"{DEVICON}/bash/bash-original.svg"),
-            ("PowerShell", f"{DEVICON}/powershell/powershell-original.svg"),
+            ("Java", "openjdk", "#437291"),
+            ("Python", "python", "#3776AB"),
+            ("JavaScript", "javascript", "#F7DF1E"),
+            ("HTML5", "html5", "#E34F26"),
+            ("CSS", "css", "#663399"),
+            ("PowerShell", "powershell", "#5391FE"),
         ],
         "lines": [
             "Java 17 · Python 3.13 · JavaScript · SQL / PLpgSQL",
-            "backend-first · scripting · static web · automation",
-            "public + private repository signal",
+            "HTML5 · CSS3 · Bash · PowerShell · automation scripts",
+            "backend-first engineering across public and private work",
         ],
     },
     {
         "title": "BACKEND & APIs",
         "accent": "#efa5d1",
         "icons": [
-            ("Spring", f"{DEVICON}/spring/spring-original.svg"),
-            ("Hibernate", f"{DEVICON}/hibernate/hibernate-original.svg"),
-            ("Thymeleaf", f"{DEVICON}/thymeleaf/thymeleaf-original.svg"),
-            ("OpenAPI", f"{DEVICON}/openapi/openapi-original.svg"),
-            ("Telegram", f"{SIMPLE}/telegram.svg"),
+            ("Spring", "spring", "#6DB33F"),
+            ("Hibernate", "hibernate", "#59666C"),
+            ("OpenAPI", "openapiinitiative", "#6BA539"),
+            ("Telegram", "telegram", "#26A5E4"),
+            ("Flask", "flask", "#F5F5F5"),
         ],
         "lines": [
-            "Spring Boot · Security · Data JPA · Hibernate · Thymeleaf",
+            "Spring Boot · MVC · Security · Data JPA · Hibernate",
             "REST / OpenAPI · aiogram 3 · Telethon · Flask · aiohttp",
-            "Telegram automation · async service boundaries",
+            "async services · integrations · Telegram automation",
         ],
     },
     {
         "title": "DATA & PERSISTENCE",
         "accent": "#9a83f5",
         "icons": [
-            ("PostgreSQL", f"{DEVICON}/postgresql/postgresql-original.svg"),
-            ("Redis", f"{DEVICON}/redis/redis-original.svg"),
-            ("SQLite", f"{DEVICON}/sqlite/sqlite-original.svg"),
-            ("Liquibase", f"{DEVICON}/liquibase/liquibase-original.svg"),
+            ("PostgreSQL", "postgresql", "#4169E1"),
+            ("Redis", "redis", "#FF4438"),
+            ("SQLite", "sqlite", "#5BA4CF"),
+            ("Liquibase", "liquibase", "#2962FF"),
         ],
         "lines": [
             "PostgreSQL 14–16 · Redis · SQLite · JDBC · asyncpg",
@@ -64,10 +63,10 @@ PANELS = [
         "title": "BUILD, TEST & QUALITY",
         "accent": "#caa8ff",
         "icons": [
-            ("Gradle", f"{DEVICON}/gradle/gradle-original.svg"),
-            ("Maven", f"{DEVICON}/maven/maven-original.svg"),
-            ("JUnit", f"{DEVICON}/junit/junit-original.svg"),
-            ("GitHub Actions", f"{DEVICON}/githubactions/githubactions-original.svg"),
+            ("Gradle", "gradle", "#8DD6F9"),
+            ("Maven", "apachemaven", "#C71A36"),
+            ("JUnit", "junit5", "#25A162"),
+            ("Actions", "githubactions", "#2088FF"),
         ],
         "lines": [
             "JUnit 5 · Mockito · Spring Test · Testcontainers",
@@ -79,11 +78,11 @@ PANELS = [
         "title": "PLATFORM & AUTOMATION",
         "accent": "#a98df8",
         "icons": [
-            ("Docker", f"{DEVICON}/docker/docker-original.svg"),
-            ("Linux", f"{DEVICON}/linux/linux-original.svg"),
-            ("Android", f"{DEVICON}/android/android-original.svg"),
-            ("Git", f"{DEVICON}/git/git-original.svg"),
-            ("IntelliJ", f"{DEVICON}/intellij/intellij-original.svg"),
+            ("Docker", "docker", "#2496ED"),
+            ("Linux", "linux", "#FCC624"),
+            ("Android", "android", "#3DDC84"),
+            ("Git", "git", "#F05032"),
+            ("IntelliJ", "intellijidea", "#F5F5F5"),
         ],
         "lines": [
             "Docker Compose · Linux · systemd · GHCR · GitHub Actions",
@@ -94,7 +93,10 @@ PANELS = [
     {
         "title": "AI, MEDIA & INTEGRATION",
         "accent": "#f0a9d4",
-        "icons": [],
+        "icons": [
+            ("OpenAI", "openai", "#F5F5F5"),
+            ("Ollama", "ollama", "#F5F5F5"),
+        ],
         "lines": [
             "OpenAI Responses API · Structured Outputs · image providers",
             "Ollama · Qwen VL · Pillow · cryptography · PyYAML",
@@ -104,85 +106,86 @@ PANELS = [
 ]
 
 
-def fetch_svg(url: str) -> str:
+def fetch_simple_icon(slug: str) -> str | None:
+    url = f"{SIMPLE}/{slug}.svg"
     request = urllib.request.Request(url, headers={"User-Agent": "stellmaria-profile-builder"})
-    with urllib.request.urlopen(request, timeout=20) as response:
-        return response.read().decode("utf-8")
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            raw = response.read().decode("utf-8")
+    except Exception:
+        return None
+    match = re.search(r'<path[^>]*d="([^"]+)"', raw)
+    return match.group(1) if match else None
 
 
-def namespace_svg(svg: str, prefix: str) -> tuple[str, str]:
-    viewbox_match = re.search(r'viewBox="([^"]+)"', svg)
-    viewbox = viewbox_match.group(1) if viewbox_match else "0 0 128 128"
-    ids = re.findall(r'id="([^"]+)"', svg)
-    for old in ids:
-        new = f"{prefix}-{old}"
-        svg = svg.replace(f'id="{old}"', f'id="{new}"')
-        svg = svg.replace(f'url(#{old})', f'url(#{new})')
-        svg = svg.replace(f'href="#{old}"', f'href="#{new}"')
-        svg = svg.replace(f'xlink:href="#{old}"', f'xlink:href="#{new}"')
-    inner_match = re.search(r"<svg[^>]*>(.*)</svg>\s*$", svg, re.S)
-    if not inner_match:
-        raise ValueError("Could not extract SVG body")
-    inner = re.sub(r"<title>.*?</title>", "", inner_match.group(1), flags=re.S)
-    return viewbox, inner
-
-
-def icon_markup(name: str, url: str, x: float, y: float, index: int) -> str:
-    raw = fetch_svg(url)
-    prefix = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") + f"-{index}"
-    viewbox, inner = namespace_svg(raw, prefix)
-    if "simple-icons" in url:
-        inner = inner.replace("<path ", '<path fill="#26A5E4" ')
-    return (
-        f'<g transform="translate({x:.1f} {y})">'
-        '<rect width="44" height="44" rx="12" fill="#171423" stroke="#3c3050"/>'
-        f'<svg x="7" y="7" width="30" height="30" viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">{inner}</svg>'
-        f'<text x="22" y="60" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.8">{name}</text>'
-        '</g>'
-    )
-
-
-def animated_lines(lines: list[str], x: float, y: float, width: float) -> str:
-    parts: list[str] = []
-    for idx, line in enumerate(lines):
-        begin = idx * 4
+def icon_markup(name: str, slug: str, color: str, x: float, y: float) -> str:
+    path = fetch_simple_icon(slug)
+    safe_name = html.escape(name)
+    parts = [
+        f'<g transform="translate({x:.1f} {y:.1f})">',
+        '<rect width="50" height="62" rx="13" fill="#171423" stroke="#3c3050"/>',
+    ]
+    if path:
         parts.append(
-            f'<text x="{x + width / 2}" y="{y}" text-anchor="middle" fill="#b9a9c9" '
-            'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" opacity="0">'
-            f'{line}'
-            f'<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;.03;.27;.33;1" dur="12s" begin="{begin}s" repeatCount="indefinite"/>'
+            f'<g transform="translate(10 8) scale(1.25)"><path d="{path}" fill="{color}"/></g>'
+        )
+    else:
+        initial = html.escape(name[:2].upper())
+        parts.extend([
+            f'<circle cx="25" cy="24" r="15" fill="{color}" opacity=".18"/>',
+            f'<text x="25" y="28" text-anchor="middle" fill="{color}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">{initial}</text>',
+        ])
+    parts.extend([
+        f'<text x="25" y="54" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.7">{safe_name}</text>',
+        '</g>',
+    ])
+    return "".join(parts)
+
+
+def animated_lines(lines: list[str], y: float) -> str:
+    timings = [
+        ("0;1;1;0;0", "0;.04;.29;.34;1"),
+        ("0;0;1;1;0;0", "0;.32;.36;.62;.67;1"),
+        ("0;0;1;1;0", "0;.65;.69;.95;1"),
+    ]
+    out: list[str] = []
+    for line, (values, key_times) in zip(lines, timings):
+        out.append(
+            f'<text x="202.5" y="{y}" text-anchor="middle" fill="#b9a9c9" '
+            'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9.4" opacity="0">'
+            f'{html.escape(line)}'
+            f'<animate attributeName="opacity" values="{values}" keyTimes="{key_times}" dur="12s" repeatCount="indefinite"/>'
             '</text>'
         )
-    return "".join(parts)
+    return "".join(out)
 
 
 def build() -> str:
     width = 920
-    height = 705
+    height = 725
     panel_w = 405
-    panel_h = 172
+    panel_h = 176
     left = 42
-    top = 108
+    top = 104
     gap_x = 28
-    gap_y = 22
+    gap_y = 20
 
     svg: list[str] = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Animated engineering toolkit">',
         '<defs>',
         '<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080914"/><stop offset=".5" stop-color="#100d1d"/><stop offset="1" stop-color="#1b1027"/></linearGradient>',
         '<linearGradient id="edge" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".5" stop-color="#8f7cf7"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>',
-        '<filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>',
+        '<filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>',
         '</defs>',
-        '<rect x="1" y="1" width="918" height="703" rx="28" fill="url(#bg)" stroke="#39294d"/>',
-        '<circle cx="69" cy="45" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
-        '<circle cx="842" cy="48" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
-        '<text x="46" y="48" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
-        '<text x="46" y="73" fill="#9f90ae" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5">derived from 15 owned repositories · private names stay private</text>',
-        '<text x="874" y="49" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">STACK SIGNAL</text>',
-        '<rect x="760" y="62" width="114" height="2" rx="1" fill="url(#edge)" opacity=".7" filter="url(#glow)"><animate attributeName="x" values="760;790;760" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="114;84;114" dur="5s" repeatCount="indefinite"/></rect>',
+        '<rect x="1" y="1" width="918" height="723" rx="28" fill="url(#bg)" stroke="#39294d"/>',
+        '<circle cx="69" cy="43" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
+        '<circle cx="842" cy="46" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
+        '<text x="46" y="47" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
+        '<text x="46" y="71" fill="#9f90ae" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5">derived from 15 owned repositories · private names stay private</text>',
+        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">STACK SIGNAL</text>',
+        '<rect x="760" y="61" width="114" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="760;790;760" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="114;84;114" dur="5s" repeatCount="indefinite"/></rect>',
     ]
 
-    icon_index = 0
     for idx, panel in enumerate(PANELS):
         row = idx // 2
         col = idx % 2
@@ -191,45 +194,31 @@ def build() -> str:
         accent = panel["accent"]
         svg.extend([
             f'<g transform="translate({x} {y})">',
-            f'<rect width="{panel_w}" height="{panel_h}" rx="22" fill="#13101f" stroke="#3d2e51"/>',
-            f'<rect x="18" y="18" width="4" height="18" rx="2" fill="{accent}"><animate attributeName="opacity" values=".35;1;.35" dur="3.6s" begin="{idx * .35}s" repeatCount="indefinite"/></rect>',
-            f'<text x="32" y="32" fill="#f0e7fb" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12" font-weight="700">{panel["title"]}</text>',
+            f'<rect width="{panel_w}" height="{panel_h}" rx="22" fill="#13101f" stroke="#3d2e51"><animate attributeName="stroke" values="#3d2e51;{accent};#3d2e51" dur="8s" begin="{idx * 1.1}s" repeatCount="indefinite"/></rect>',
+            f'<rect x="18" y="16" width="4" height="18" rx="2" fill="{accent}"><animate attributeName="opacity" values=".3;1;.3" dur="3.6s" begin="{idx * .35}s" repeatCount="indefinite"/></rect>',
+            f'<text x="32" y="30" fill="#f0e7fb" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" font-weight="700">{html.escape(panel["title"])}</text>',
             '<circle cx="382" cy="23" r="1.7" fill="#c4a5ef"><animate attributeName="opacity" values=".2;1;.2" dur="4s" repeatCount="indefinite"/></circle>',
         ])
         icons = panel["icons"]
-        if icons:
-            start_x = 18.0
-            end_x = panel_w - 18.0 - 44.0
-            step = (end_x - start_x) / max(1, len(icons) - 1) if len(icons) > 1 else 0
-            for j, (name, url) in enumerate(icons):
-                ix = start_x + j * step
-                svg.append(icon_markup(name, url, ix, 54, icon_index))
-                icon_index += 1
-        else:
-            pills = [
-                ("OpenAI", 22, 58, 78),
-                ("Ollama / Qwen VL", 110, 58, 122),
-                ("Pillow", 242, 58, 72),
-                ("cryptography", 22, 98, 104),
-                ("mitmproxy", 136, 98, 90),
-                ("Structured Outputs", 236, 98, 142),
-            ]
-            for pill, px, py, pw in pills:
-                svg.append(
-                    f'<g transform="translate({px} {py})">'
-                    f'<rect width="{pw}" height="28" rx="14" fill="#1d1729" stroke="#4a365f"/>'
-                    f'<text x="{pw / 2:.1f}" y="18" text-anchor="middle" fill="#d8c8e8" font-family="Inter,Segoe UI,sans-serif" font-size="10">{pill}</text>'
-                    '</g>'
-                )
-        svg.append(animated_lines(panel["lines"], 12, 157, panel_w - 24))
+        count = len(icons)
+        if count:
+            total_width = count * 50
+            available_gap = max(0, 355 - total_width)
+            step = 50 + (available_gap / max(1, count - 1))
+            start_x = 25
+            for j, (name, slug, color) in enumerate(icons):
+                svg.append(icon_markup(name, slug, color, start_x + j * step, 48))
+        svg.append(animated_lines(panel["lines"], 154))
         svg.append('</g>')
 
     svg.extend([
-        '<rect x="76" y="677" width="768" height="2" rx="1" fill="url(#edge)" opacity=".48" filter="url(#glow)"><animate attributeName="x" values="76;126;76" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="768;668;768" dur="6s" repeatCount="indefinite"/></rect>',
-        '<text x="460" y="693" text-anchor="middle" fill="#776a87" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">systems · data · automation · delivery · AI integration</text>',
+        '<rect x="76" y="697" width="768" height="2" rx="1" fill="url(#edge)" opacity=".48" filter="url(#glow)"><animate attributeName="x" values="76;126;76" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="768;668;768" dur="6s" repeatCount="indefinite"/></rect>',
+        '<text x="460" y="714" text-anchor="middle" fill="#776a87" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">systems · data · automation · delivery · AI integration</text>',
         '</svg>',
     ])
-    return "".join(svg)
+    result = "".join(svg)
+    ET.fromstring(result)
+    return result
 
 
 if __name__ == "__main__":
