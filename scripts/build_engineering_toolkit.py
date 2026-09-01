@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -8,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets" / "engineering-toolkit-v2.svg"
+INVENTORY = ROOT / "data" / "stack-inventory.json"
 SIMPLE_ICONS_REVISION = "8a040dd8e1f7d99d27827efd4089a5434fdb7b5c"
 SIMPLE = f"https://raw.githubusercontent.com/simple-icons/simple-icons/{SIMPLE_ICONS_REVISION}/icons"
 
@@ -76,111 +78,37 @@ CUSTOM_ICONS = {
     ),
 }
 
-PANELS = [
-    {
-        "title": "LANGUAGES & WEB",
-        "accent": "#d8b4fe",
-        "icons": [
-            ("Java", "openjdk", "#437291"),
-            ("Python", "python", "#3776AB"),
-            ("JavaScript", "javascript", "#F7DF1E"),
-            ("HTML5", "html5", "#E34F26"),
-            ("CSS3", "css", "#663399"),
-            ("PowerShell", "powershell", "#5391FE"),
-        ],
-        "lines": [
-            "Java 8–17 · Python 3.12–3.14 · JavaScript · SQL / PLpgSQL",
-            "HTML5 · CSS3 · jQuery · Bash · PowerShell",
-            "backend-first engineering across public and private work",
-        ],
-    },
-    {
-        "title": "BACKEND & APIs",
-        "accent": "#efa5d1",
-        "icons": [
-            ("Spring", "spring", "#6DB33F"),
-            ("Security", "springsecurity", "#6DB33F"),
-            ("Hibernate", "hibernate", "#59666C"),
-            ("Servlet/JSP", "servletjsp", "#f6efff"),
-            ("aiogram", "telegram", "#26A5E4"),
-            ("Telethon", "telethon", "#8f7cf7"),
-        ],
-        "lines": [
-            "Spring Boot · MVC · Security · Data JPA · Hibernate",
-            "Jakarta Servlet · JSP · Thymeleaf · REST / OpenAPI",
-            "aiogram 3 · Telethon · Flask · aiohttp · async services",
-        ],
-    },
-    {
-        "title": "DATA & PERSISTENCE",
-        "accent": "#9a83f5",
-        "icons": [
-            ("PostgreSQL", "postgresql", "#4169E1"),
-            ("asyncpg", "asyncpg", "#5BA4CF"),
-            ("Redis", "redis", "#FF4438"),
-            ("SQLite", "sqlite", "#5BA4CF"),
-            ("Liquibase", "liquibase", "#2962FF"),
-            ("Flyway", "flyway", "#CC0200"),
-        ],
-        "lines": [
-            "PostgreSQL 14–17 · Redis · SQLite · JDBC · asyncpg",
-            "QueryDSL · Liquibase · Flyway · migrations · durable state",
-            "transactional workflows · queues · backup / restore · query stats",
-        ],
-    },
-    {
-        "title": "BUILD, TEST & QUALITY",
-        "accent": "#caa8ff",
-        "icons": [
-            ("Gradle", "gradle", "#8DD6F9"),
-            ("Maven", "apachemaven", "#C71A36"),
-            ("JUnit", "junit5", "#25A162"),
-            ("pytest", "pytest", "#0A9EDC"),
-            ("Ruff", "ruff", "#D7FF64"),
-            ("CI", "githubactions", "#2088FF"),
-        ],
-        "lines": [
-            "JUnit 5 · Mockito · Spring Test · Testcontainers · pytest",
-            "unittest · Ruff · CI/CD · security gates · regression checks",
-            "QA automation · secret scanning · fail-closed delivery",
-        ],
-    },
-    {
-        "title": "PLATFORM & AUTOMATION",
-        "accent": "#a98df8",
-        "icons": [
-            ("Docker", "docker", "#2496ED"),
-            ("Linux", "linux", "#FCC624"),
-            ("Android", "android", "#3DDC84"),
-            ("Git", "git", "#F05032"),
-            ("systemd", "systemd", "#D8B4FE"),
-            ("SSH", "sshtunnel", "#8f7cf7"),
-        ],
-        "lines": [
-            "Docker Compose · Linux · systemd · GHCR · GitHub Actions",
-            "Redroid · ADB · Frida · SSH tunnels · PowerShell",
-            "non-root containers · rollback · backup / restore · Trivy / SBOM",
-        ],
-    },
-    {
-        "title": "AI, MEDIA & INTEGRATION",
-        "accent": "#f0a9d4",
-        "icons": [
-            ("OpenAI", "openai", "#F5F5F5"),
-            ("Ollama", "ollama", "#F5F5F5"),
-            ("Qwen VL", "alibabacloud", "#FF6A00"),
-            ("Pillow", "pillow", "#65B8C2"),
-            ("Crypto", "cryptography", "#d8b4fe"),
-            ("PyYAML", "yaml", "#CB171E"),
-            ("Proxy", "mitmproxy", "#D8B4FE"),
-        ],
-        "lines": [
-            "OpenAI Responses API · Structured Outputs · image providers",
-            "Ollama · Qwen VL · Pillow · cryptography · PyYAML",
-            "mitmproxy · fallback pipelines · provider routing",
-        ],
-    },
-]
+def load_inventory() -> tuple[dict[str, object], list[dict[str, object]]]:
+    """Load the privacy-preserving, reviewable source for the stack artwork."""
+    inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
+    if inventory.get("schema") != 1:
+        raise ValueError("Unsupported stack inventory schema")
+
+    scope = inventory.get("scope")
+    panels = inventory.get("domains")
+    if not isinstance(scope, dict) or not isinstance(panels, list):
+        raise ValueError("Stack inventory requires scope and domains")
+    if not isinstance(scope.get("repositoryCount"), int) or scope["repositoryCount"] < 1:
+        raise ValueError("Stack inventory requires a positive repositoryCount")
+    if len(panels) != 6:
+        raise ValueError("Stack inventory must define exactly six domains")
+
+    for panel in panels:
+        if not isinstance(panel, dict):
+            raise ValueError("Each stack domain must be an object")
+        icons = panel.get("icons")
+        if not all(isinstance(panel.get(field), str) and panel[field] for field in ("title", "accent")):
+            raise ValueError("Each stack domain requires title and accent")
+        if not isinstance(icons, list) or not 1 <= len(icons) <= 6:
+            raise ValueError("Each stack domain must have one to six icons")
+        if not all(isinstance(icon, list) and len(icon) == 3 and all(isinstance(value, str) for value in icon) for icon in icons):
+            raise ValueError("Each stack icon must contain a label, slug, and color")
+        if not isinstance(panel.get("lines"), list) or not panel["lines"]:
+            raise ValueError("Each stack domain requires descriptive lines")
+    return scope, panels
+
+
+SCOPE, PANELS = load_inventory()
 
 
 def fetch_simple_icon(slug: str) -> str:
@@ -250,6 +178,8 @@ def animated_lines(lines: list[str], y: float) -> str:
 
 
 def build() -> str:
+    repository_count = SCOPE["repositoryCount"]
+    domain_count = len(PANELS)
     width = 920
     height = 700
     panel_w = 405
@@ -270,7 +200,7 @@ def build() -> str:
         '<circle cx="69" cy="43" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
         '<circle cx="842" cy="46" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
         '<text x="46" y="47" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
-        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">AUDITED STACK · 6 DOMAINS</text>',
+        f'<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9.5">AUDITED · {repository_count} REPOS · {domain_count} DOMAINS</text>',
         '<rect x="742" y="60" width="132" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="742;782;742" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="132;92;132" dur="6s" repeatCount="indefinite"/></rect>',
     ]
 
@@ -289,12 +219,7 @@ def build() -> str:
         ])
         icons = panel["icons"]
         icon_count = len(icons)
-        if icon_count <= 6:
-            card_width, gap, icon_scale, label_size = 50.0, 11.0, 1.25, 7.2
-        elif icon_count == 7:
-            card_width, gap, icon_scale, label_size = 48.0, 5.0, 1.2, 6.7
-        else:
-            card_width, gap, icon_scale, label_size = 44.0, 3.0, 1.1, 6.05
+        card_width, gap, icon_scale, label_size = 50.0, 11.0, 1.25, 7.2
         row_width = icon_count * card_width + (icon_count - 1) * gap
         start_x = (panel_w - row_width) / 2
         for j, (name, slug, color) in enumerate(icons):

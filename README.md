@@ -2,31 +2,31 @@
   <img src="./assets/stellmaria-banner-hd.png" width="100%" alt="Stellmaria — late-night coding" />
 </p>
 
-<br>
+<br />
 
 <p align="center">
   <img src="./assets/intro-live.svg" width="100%" alt="Stellmaria — animated developer introduction" />
 </p>
 
-<br>
+<br />
 
 <p align="center">
   <img src="./assets/dev-signature.svg" width="100%" alt="Animated developer signature" />
 </p>
 
-<br>
+<br />
 
 <p align="center">
-  <img src="./assets/engineering-toolkit-v2.svg" width="100%" alt="Engineering toolkit across the profile repository stack" />
+  <img src="./assets/engineering-toolkit-v2.svg" width="100%" alt="Audited engineering stack across 15 repositories" />
 </p>
 
-<br>
+<br />
 
 <p align="center">
   <img src="./assets/profile-metrics-live.svg" width="100%" alt="GitHub contribution metrics since 2022" />
 </p>
 
-<br>
+<br />
 
 <p align="center">
   <img src="./assets/afterglow.svg" width="100%" alt="Code, dream, create" />

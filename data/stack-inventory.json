@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "auditedAt": "2026-09-01",
+  "scope": {
+    "repositoryCount": 15,
+    "ownedRepositoryCount": 13,
+    "forkCount": 2,
+    "privateRepositoryCount": 4,
+    "publicRepositoryCount": 9,
+    "privateRepositoryNamesIncluded": false
+  },
+  "domains": [
+    {
+      "title": "LANGUAGES & WEB",
+      "accent": "#d8b4fe",
+      "icons": [
+        ["Java", "openjdk", "#437291"], ["Python", "python", "#3776AB"], ["JavaScript", "javascript", "#F7DF1E"], ["HTML5", "html5", "#E34F26"], ["CSS3", "css", "#663399"], ["PowerShell", "powershell", "#5391FE"]
+      ],
+      "lines": ["Java 8–17 · Python 3.12–3.14 · JavaScript · SQL / PLpgSQL", "HTML5 · CSS3 · jQuery · Bash · PowerShell", "backend-first engineering across public and private work"]
+    },
+    {
+      "title": "BACKEND & APIs",
+      "accent": "#efa5d1",
+      "icons": [
+        ["Spring", "spring", "#6DB33F"], ["Security", "springsecurity", "#6DB33F"], ["Hibernate", "hibernate", "#59666C"], ["Servlet/JSP", "servletjsp", "#f6efff"], ["aiogram", "telegram", "#26A5E4"], ["Telethon", "telethon", "#8f7cf7"]
+      ],
+      "lines": ["Spring Boot · MVC · Security · Data JPA · Hibernate", "Jakarta Servlet · JSP · Thymeleaf · REST / OpenAPI", "aiogram 3 · Telethon · Flask · aiohttp · async services"]
+    },
+    {
+      "title": "DATA & PERSISTENCE",
+      "accent": "#9a83f5",
+      "icons": [
+        ["PostgreSQL", "postgresql", "#4169E1"], ["asyncpg", "asyncpg", "#5BA4CF"], ["Redis", "redis", "#FF4438"], ["SQLite", "sqlite", "#5BA4CF"], ["Liquibase", "liquibase", "#2962FF"], ["Flyway", "flyway", "#CC0200"]
+      ],
+      "lines": ["PostgreSQL 14–17 · Redis · SQLite · JDBC · asyncpg", "QueryDSL · Liquibase · Flyway · migrations · durable state", "transactional workflows · queues · backup / restore · query stats"]
+    },
+    {
+      "title": "BUILD, TEST & QUALITY",
+      "accent": "#caa8ff",
+      "icons": [
+        ["Gradle", "gradle", "#8DD6F9"], ["Maven", "apachemaven", "#C71A36"], ["JUnit", "junit5", "#25A162"], ["pytest", "pytest", "#0A9EDC"], ["Ruff", "ruff", "#D7FF64"], ["CI", "githubactions", "#2088FF"]
+      ],
+      "lines": ["JUnit 5 · Mockito · Spring Test · Testcontainers · pytest", "unittest · Ruff · CI/CD · security gates · regression checks", "QA automation · secret scanning · fail-closed delivery"]
+    },
+    {
+      "title": "PLATFORM & AUTOMATION",
+      "accent": "#a98df8",
+      "icons": [
+        ["Docker", "docker", "#2496ED"], ["Linux", "linux", "#FCC624"], ["Android", "android", "#3DDC84"], ["Git", "git", "#F05032"], ["systemd", "systemd", "#D8B4FE"], ["SSH", "sshtunnel", "#8f7cf7"]
+      ],
+      "lines": ["Docker Compose · Linux · systemd · GHCR · GitHub Actions", "Redroid · ADB · Frida · SSH tunnels · PowerShell", "non-root containers · rollback · backup / restore · Trivy / SBOM"]
+    },
+    {
+      "title": "AI, MEDIA & INTEGRATION",
+      "accent": "#f0a9d4",
+      "icons": [
+        ["OpenAI", "openai", "#F5F5F5"], ["Ollama", "ollama", "#F5F5F5"], ["Qwen VL", "alibabacloud", "#FF6A00"], ["Pillow", "pillow", "#65B8C2"], ["Crypto", "cryptography", "#d8b4fe"], ["PyYAML", "yaml", "#CB171E"]
+      ],
+      "lines": ["OpenAI Responses API · Structured Outputs · image providers", "Ollama · Qwen VL · Pillow · cryptography · PyYAML", "mitmproxy · fallback pipelines · provider routing"]
+    }
+  ]
+}
