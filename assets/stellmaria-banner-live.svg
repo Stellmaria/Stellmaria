@@ -21,21 +21,23 @@
       <animate attributeName="opacity" values="0;0;.88;.88;0;0;.88;.88;0" keyTimes="0;.2;.225;.25;.275;.61;.635;.66;1" dur="5.8s" repeatCount="indefinite"/>
     </path>
   </g>
-  <g aria-label="cat ear movement" fill="none" stroke="#f1a8b3" stroke-linecap="round" opacity=".2">
-    <path d="M1410 108Q1431 130 1451 179" stroke-width="3"><animateTransform attributeName="transform" type="rotate" values="0 1428 145;1.2 1428 145;0 1428 145" dur="3.8s" repeatCount="indefinite"/></path>
-    <path d="M1510 153Q1535 135 1554 176" stroke-width="2.5"><animateTransform attributeName="transform" type="rotate" values="0 1532 155;-1.4 1532 155;0 1532 155" dur="4.6s" begin="-1.2s" repeatCount="indefinite"/></path>
+  <g aria-label="cat ear movement" fill="none" stroke-linecap="round">
+    <path d="M1450 102Q1490 137 1539 232" stroke="#f3ad91" stroke-width="4" opacity=".34">
+      <animateTransform attributeName="transform" type="rotate" values="0 1510 228;2.8 1510 228;0 1510 228" dur="3.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".18;.62;.3;.18" dur="3.4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M1538 150Q1572 178 1603 239" stroke="#f0b1d0" stroke-width="3.5" opacity=".3">
+      <animateTransform attributeName="transform" type="rotate" values="0 1570 226;-3.2 1570 226;0 1570 226" dur="4.1s" begin="-1.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".16;.58;.26;.16" dur="4.1s" begin="-1.3s" repeatCount="indefinite"/>
+    </path>
   </g>
   <g aria-label="animated moon" filter="url(#softGlow)">
     <circle cx="2030" cy="492" r="91" fill="url(#moonGlow)" opacity=".12"><animate attributeName="opacity" values=".08;.35;.15;.42;.08" dur="5.5s" repeatCount="indefinite"/></circle>
     <circle cx="2030" cy="492" r="57" fill="none" stroke="#dfbbff" stroke-width="2" opacity=".15"><animate attributeName="opacity" values=".08;.48;.12;.38;.08" dur="4.6s" begin="-1.5s" repeatCount="indefinite"/></circle>
   </g>
-  <g aria-label="blinking caption" fill="#e2c6ff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
-    <text x="437" y="383" font-size="38" opacity=".05">code • dream • create<animate attributeName="opacity" values=".02;.38;.06;.28;.02" dur="4.4s" repeatCount="indefinite"/></text>
-    <text x="438" y="426" font-size="21" opacity=".04">Building dreams, one commit at a time.<animate attributeName="opacity" values=".02;.3;.05;.24;.02" dur="5.3s" begin="-1.3s" repeatCount="indefinite"/></text>
-  </g>
   <g aria-label="Minsk time" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
-    <rect x="1154" y="500" width="112" height="54" rx="7" fill="#0b0d26" opacity=".76"/>
-    <text x="1210" y="538" fill="#b986ff" font-size="29" font-weight="700">17:29</text>
-    <circle cx="1170" cy="512" r="2" fill="#edc1ff"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></circle>
+    <rect x="1203" y="533" width="120" height="43" rx="5" fill="#0b0d26" opacity=".92"/>
+    <text x="1263" y="565" fill="#b986ff" font-size="28" font-weight="700">17:34</text>
+    <circle cx="1215" cy="544" r="1.8" fill="#edc1ff"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></circle>
   </g>
 </svg>
