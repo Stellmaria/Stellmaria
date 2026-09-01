@@ -2,20 +2,44 @@
 
 <img src="./assets/lofi-cat-live.gif" width="100%" alt="Stellmaria — animated lo-fi coding cat on a rainy night" />
 
-<h2>Stellmaria</h2>
+<h1>Stellmaria</h1>
 
 <sub>☾ late-night code · cats · coffee · quiet commits ☾</sub>
 
 <br><br>
 
-<code>Java</code> · <code>Python</code> · <code>Git</code> · <code>GitHub</code> · <code>Docker</code> · <code>Linux</code>
+<strong>Java Backend Developer</strong><br>
+<sub>building things somewhere between midnight and one last tiny fix</sub>
+
+</div>
+
+<br>
+
+<img src="./assets/tech-stack.svg" width="100%" alt="Stellmaria tech constellation" />
+
+<br>
+
+<img src="./assets/profile-stats.svg" width="100%" alt="Stellmaria GitHub pulse" />
+
+<br>
+
+<div align="center">
+
+### ☾ night mode
+
+```text
+while (night) {
+    code();
+    coffee++;
+    pet(cat);
+    fixOneMoreThing();
+}
+```
+
+<sub>Java · Spring · Python · PostgreSQL · Redis · Docker · Linux · Git</sub>
 
 <br><br>
 
-<code>while (night) { code(); coffee++; pet(cat); fixOneMoreThing(); }</code>
-
-<br><br>
-
-<sub>✦ somewhere between a clean commit and one last tiny fix ✦</sub>
+<sub>✦ code softly · ship carefully · keep the cat nearby ✦</sub>
 
 </div>
