@@ -134,16 +134,15 @@ def icon_markup(name: str, url: str, x: float, y: float, index: int) -> str:
     if "simple-icons" in url:
         inner = inner.replace("<path ", '<path fill="#26A5E4" ')
     return (
-        f'<g transform="translate({x} {y})">'
-        '<rect width="50" height="50" rx="13" fill="#171423" stroke="#3c3050"/>'
-        f'<svg x="9" y="9" width="32" height="32" viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">{inner}</svg>'
-        f'<text x="25" y="67" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="8.5">{name}</text>'
+        f'<g transform="translate({x:.1f} {y})">'
+        '<rect width="44" height="44" rx="12" fill="#171423" stroke="#3c3050"/>'
+        f'<svg x="7" y="7" width="30" height="30" viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">{inner}</svg>'
+        f'<text x="22" y="60" text-anchor="middle" fill="#a99bb8" font-family="Inter,Segoe UI,sans-serif" font-size="7.8">{name}</text>'
         '</g>'
     )
 
 
 def animated_lines(lines: list[str], x: float, y: float, width: float) -> str:
-    duration = 12
     parts: list[str] = []
     for idx, line in enumerate(lines):
         begin = idx * 4
@@ -151,7 +150,7 @@ def animated_lines(lines: list[str], x: float, y: float, width: float) -> str:
             f'<text x="{x + width / 2}" y="{y}" text-anchor="middle" fill="#b9a9c9" '
             'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" opacity="0">'
             f'{line}'
-            f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.78;1" dur="4s" begin="{begin}s" repeatCount="indefinite"/>'
+            f'<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;.03;.27;.33;1" dur="12s" begin="{begin}s" repeatCount="indefinite"/>'
             '</text>'
         )
     return "".join(parts)
@@ -199,27 +198,29 @@ def build() -> str:
         ])
         icons = panel["icons"]
         if icons:
-            start_x = 22
-            usable = 360
-            step = usable / max(1, len(icons) - 1) if len(icons) > 1 else 0
+            start_x = 18.0
+            end_x = panel_w - 18.0 - 44.0
+            step = (end_x - start_x) / max(1, len(icons) - 1) if len(icons) > 1 else 0
             for j, (name, url) in enumerate(icons):
                 ix = start_x + j * step
-                svg.append(icon_markup(name, url, ix, 52, icon_index))
+                svg.append(icon_markup(name, url, ix, 54, icon_index))
                 icon_index += 1
         else:
-            pills = ["OpenAI", "Ollama / Qwen VL", "Pillow", "cryptography", "mitmproxy"]
-            px = 22
-            for pidx, pill in enumerate(pills):
-                pw = 58 + len(pill) * 3.7
+            pills = [
+                ("OpenAI", 22, 58, 78),
+                ("Ollama / Qwen VL", 110, 58, 122),
+                ("Pillow", 242, 58, 72),
+                ("cryptography", 22, 98, 104),
+                ("mitmproxy", 136, 98, 90),
+                ("Structured Outputs", 236, 98, 142),
+            ]
+            for pill, px, py, pw in pills:
                 svg.append(
-                    f'<g transform="translate({px} {62 + (pidx % 2) * 42})">'
-                    f'<rect width="{pw:.0f}" height="28" rx="14" fill="#1d1729" stroke="#4a365f"/>'
+                    f'<g transform="translate({px} {py})">'
+                    f'<rect width="{pw}" height="28" rx="14" fill="#1d1729" stroke="#4a365f"/>'
                     f'<text x="{pw / 2:.1f}" y="18" text-anchor="middle" fill="#d8c8e8" font-family="Inter,Segoe UI,sans-serif" font-size="10">{pill}</text>'
                     '</g>'
                 )
-                px += pw + 9
-                if px > 320:
-                    px = 22
         svg.append(animated_lines(panel["lines"], 12, 157, panel_w - 24))
         svg.append('</g>')
 
