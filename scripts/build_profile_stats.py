@@ -16,7 +16,6 @@ USERNAME = os.environ.get("PROFILE_USERNAME", "Stellmaria")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 API = "https://api.github.com"
 
-PALETTE = ["#c7a2ff", "#9575ff", "#ef9dcc", "#70b7ff", "#f2b184", "#77d8c9"]
 LANG_COLORS = {
     "Java": "#b07219",
     "Python": "#3572A5",
@@ -30,7 +29,9 @@ LANG_COLORS = {
     "C++": "#f34b7d",
     "Go": "#00ADD8",
     "Rust": "#dea584",
+    "PLpgSQL": "#70b7ff",
 }
+FALLBACK_COLORS = ["#d8b4fe", "#9a83f5", "#efa5d1", "#70b7ff", "#f2b184", "#77d8c9"]
 
 
 def headers() -> dict[str, str]:
@@ -72,35 +73,21 @@ def contribution_total() -> int | None:
             f"{API}/graphql",
             data={"query": query, "variables": {"login": USERNAME}},
         )
-        return int(
-            payload["data"]["user"]["contributionsCollection"]["contributionCalendar"][
-                "totalContributions"
-            ]
-        )
+        return int(payload["data"]["user"]["contributionsCollection"]["contributionCalendar"]["totalContributions"])
     except (KeyError, TypeError, ValueError, urllib.error.URLError):
         return None
 
 
 def fetch_profile() -> tuple[dict[str, Any], list[dict[str, Any]], Counter[str]]:
     user = request_json(f"{API}/users/{USERNAME}")
-    repos = request_json(
-        f"{API}/users/{USERNAME}/repos?per_page=100&sort=updated&direction=desc&type=public"
-    )
+    repos = request_json(f"{API}/users/{USERNAME}/repos?per_page=100&sort=updated&direction=desc&type=public")
     owned = [repo for repo in repos if not repo.get("fork")]
-    owned.sort(
-        key=lambda repo: (
-            int(repo.get("stargazers_count", 0)),
-            repo.get("pushed_at") or "",
-        ),
-        reverse=True,
-    )
+    owned.sort(key=lambda repo: (int(repo.get("stargazers_count", 0)), repo.get("pushed_at") or ""), reverse=True)
 
     languages: Counter[str] = Counter()
     for repo in owned[:30]:
         try:
-            language_map = request_json(
-                f"{API}/repos/{repo['owner']['login']}/{repo['name']}/languages"
-            )
+            language_map = request_json(f"{API}/repos/{repo['owner']['login']}/{repo['name']}/languages")
         except urllib.error.URLError:
             continue
         for language, byte_count in language_map.items():
@@ -109,10 +96,9 @@ def fetch_profile() -> tuple[dict[str, Any], list[dict[str, Any]], Counter[str]]
     return user, owned, languages
 
 
-def text(x: int, y: int, value: str, *, size: int, fill: str, weight: int = 400, anchor: str = "start") -> str:
+def txt(x: int, y: int, value: str, *, size: int, fill: str, weight: int = 400, anchor: str = "start", family: str = "ui-monospace,SFMono-Regular,Menlo,monospace") -> str:
     return (
-        f'<text x="{x}" y="{y}" fill="{fill}" '
-        'font-family="ui-monospace,SFMono-Regular,Menlo,monospace" '
+        f'<text x="{x}" y="{y}" fill="{fill}" font-family="{family}" '
         f'font-size="{size}" font-weight="{weight}" text-anchor="{anchor}">{escape(value)}</text>'
     )
 
@@ -120,73 +106,64 @@ def text(x: int, y: int, value: str, *, size: int, fill: str, weight: int = 400,
 def build_svg() -> str:
     user, repos, languages = fetch_profile()
     stars = sum(int(repo.get("stargazers_count", 0)) for repo in repos)
-    forks = sum(int(repo.get("forks_count", 0)) for repo in repos)
     contributions = contribution_total()
     updated = datetime.now(UTC).strftime("%Y-%m-%d")
 
     total_language_bytes = sum(languages.values())
     top_languages = languages.most_common(6)
-
-    cards = [
+    metrics = [
         ("PUBLIC REPOS", str(int(user.get("public_repos", len(repos))))),
         ("FOLLOWERS", str(int(user.get("followers", 0)))),
         ("TOTAL STARS", str(stars)),
-        ("YEAR CONTRIBUTIONS", str(contributions) if contributions is not None else "public"),
+        ("YEAR CONTRIBUTIONS", f"{contributions:,}" if contributions is not None else "public"),
     ]
 
     svg: list[str] = [
-        '<svg xmlns="http://www.w3.org/2000/svg" width="920" height="326" viewBox="0 0 920 326" role="img" aria-label="GitHub pulse">',
-        '<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0b0b18"/><stop offset="1" stop-color="#171126"/></linearGradient>'
-        '<linearGradient id="shine" x1="0" x2="1"><stop stop-color="#c7a2ff"/><stop offset=".55" stop-color="#9575ff"/><stop offset="1" stop-color="#ef9dcc"/></linearGradient></defs>',
-        '<rect x="1" y="1" width="918" height="324" rx="24" fill="url(#bg)" stroke="#34254d"/>',
-        '<circle cx="858" cy="42" r="2" fill="#f0a8d5"/><circle cx="884" cy="67" r="1.5" fill="#9270d4"/><circle cx="63" cy="291" r="1.5" fill="#c7a2ff"/>',
-        text(42, 48, "GITHUB PULSE", size=18, fill="#efe6ff", weight=700),
-        text(42, 72, f"public profile snapshot · refreshed {updated}", size=12, fill="#9788ad"),
+        '<svg xmlns="http://www.w3.org/2000/svg" width="920" height="340" viewBox="0 0 920 340" role="img" aria-label="GitHub profile pulse">',
+        '<defs>'
+        '<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0a0a15"/><stop offset=".55" stop-color="#11101f"/><stop offset="1" stop-color="#181126"/></linearGradient>'
+        '<linearGradient id="accent" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".48" stop-color="#9a83f5"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>'
+        '<filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+        '</defs>',
+        '<rect x="1" y="1" width="918" height="338" rx="26" fill="url(#bg)" stroke="#352847"/>',
+        '<circle cx="53" cy="39" r="2" fill="#d5b4ff"/><circle cx="853" cy="42" r="1.5" fill="#efa5d1"/><circle cx="885" cy="294" r="2" fill="#8e76ca"/>',
+        txt(42, 48, "GITHUB PULSE", size=17, fill="#f4edff", weight=700),
+        txt(42, 72, f"public snapshot · refreshed {updated}", size=11, fill="#8f829f"),
     ]
 
-    card_x = [42, 248, 454, 660]
-    card_w = [194, 194, 194, 216]
-    for (label, value), x, width in zip(cards, card_x, card_w):
+    xs = [42, 251, 460, 669]
+    widths = [197, 197, 197, 209]
+    for (label, value), x, width in zip(metrics, xs, widths):
         svg.append(
-            f'<g transform="translate({x} 96)"><rect width="{width}" height="78" rx="16" fill="#141222" stroke="#392a53"/>'
-            f'{text(18, 29, label, size=11, fill="#9d8caf")}'
-            f'{text(18, 59, value, size=25, fill="#f1e8ff", weight=700)}'
+            f'<g transform="translate({x} 96)"><rect width="{width}" height="88" rx="18" fill="#141221" stroke="#382c4b"/>'
+            f'{txt(18, 31, label, size=10, fill="#a897bd", weight=700)}'
+            f'{txt(18, 65, value, size=27, fill="#f4edff", weight=700, family="Inter,Segoe UI,sans-serif")}'
             '</g>'
         )
 
-    svg.extend(
-        [
-            text(42, 210, "TOP PUBLIC LANGUAGES", size=13, fill="#cdbbea", weight=700),
-            '<rect x="42" y="228" width="834" height="15" rx="7.5" fill="#211a31"/>',
-        ]
-    )
+    svg.append(txt(42, 222, "TOP PUBLIC LANGUAGES", size=10, fill="#a897bd", weight=700))
+    svg.append('<rect x="42" y="239" width="836" height="14" rx="7" fill="#201a2d"/>')
 
     cursor = 42.0
     if total_language_bytes > 0:
         for index, (language, byte_count) in enumerate(top_languages):
             share = byte_count / total_language_bytes
-            width = max(4.0, 834.0 * share)
-            color = LANG_COLORS.get(language, PALETTE[index % len(PALETTE)])
-            svg.append(
-                f'<rect x="{cursor:.1f}" y="228" width="{width:.1f}" height="15" rx="3" fill="{color}" opacity=".92"/>'
-            )
+            width = max(4.0, 836.0 * share)
+            color = LANG_COLORS.get(language, FALLBACK_COLORS[index % len(FALLBACK_COLORS)])
+            svg.append(f'<rect x="{cursor:.1f}" y="239" width="{width:.1f}" height="14" rx="4" fill="{color}" opacity=".9"/>')
             cursor += width
 
-        legend_x = 42
-        legend_y = 270
-        for index, (language, byte_count) in enumerate(top_languages):
+        legend_positions = [(42, 284), (225, 284), (408, 284), (42, 310), (225, 310), (408, 310)]
+        for index, ((language, byte_count), (x, y)) in enumerate(zip(top_languages, legend_positions)):
             share = 100.0 * byte_count / total_language_bytes
-            color = LANG_COLORS.get(language, PALETTE[index % len(PALETTE)])
-            if index == 3:
-                legend_x = 42
-                legend_y = 296
-            svg.append(f'<circle cx="{legend_x + 5}" cy="{legend_y - 4}" r="5" fill="{color}"/>')
-            svg.append(text(legend_x + 17, legend_y, f"{language} {share:.1f}%", size=11, fill="#c6bad6"))
-            legend_x += 184
+            color = LANG_COLORS.get(language, FALLBACK_COLORS[index % len(FALLBACK_COLORS)])
+            svg.append(f'<circle cx="{x + 5}" cy="{y - 4}" r="5" fill="{color}"/>')
+            svg.append(txt(x + 17, y, f"{language}  {share:.1f}%", size=11, fill="#cbbfd7"))
     else:
-        svg.append(text(42, 270, "language data will appear after the next refresh", size=11, fill="#7f718f"))
+        svg.append(txt(42, 286, "language data will appear after the next refresh", size=11, fill="#80748d"))
 
-    svg.append(text(876, 310, f"{forks} forks across owned public repos", size=10, fill="#756982", anchor="end"))
+    svg.append(txt(878, 313, "owned public repositories", size=10, fill="#6f647c", anchor="end"))
+    svg.append('<rect x="42" y="326" width="836" height="2" rx="1" fill="url(#accent)" opacity=".45" filter="url(#glow)"/>')
     svg.append('</svg>')
     return "".join(svg)
 
