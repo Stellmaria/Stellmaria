@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import base64
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -50,57 +49,18 @@ def steam() -> str:
     )
 
 
-def digital_clock(value: str) -> str:
-    """Render a compact seven-segment clock that matches the desk display."""
-    segments = {
-        "0": "ab cdef".replace(" ", ""), "1": "bc", "2": "abged", "3": "abgcd",
-        "4": "fgbc", "5": "afgcd", "6": "afgecd", "7": "abc", "8": "abcdefg", "9": "abfgcd",
-    }
-    positions = {
-        "a": ((3, 0), (14, 0)), "b": ((17, 3), (17, 11)), "c": ((17, 16), (17, 24)),
-        "d": ((3, 27), (14, 27)), "e": ((0, 16), (0, 24)), "f": ((0, 3), (0, 11)),
-        "g": ((3, 13.5), (14, 13.5)),
-    }
-    x = 1212
-    parts: list[str] = []
-    for char in value:
-        if char == ":":
-            parts.append(f'<circle cx="{x + 3}" cy="550" r="1.8" fill="#bc89ff"/><circle cx="{x + 3}" cy="562" r="1.8" fill="#bc89ff"/>')
-            x += 10
-            continue
-        for segment in segments[char]:
-            (x1, y1), (x2, y2) = positions[segment]
-            parts.append(
-                f'<line x1="{x + x1}" y1="{541 + y1}" x2="{x + x2}" y2="{541 + y2}" '
-                'stroke="#bd8cff" stroke-width="2.7" stroke-linecap="round"/>'
-            )
-        x += 21
-    return "".join(parts)
-
-
 def build() -> str:
     encoded_banner = base64.b64encode(SOURCE.read_bytes()).decode("ascii")
-    minsk_time = datetime.now(timezone(timedelta(hours=3))).strftime("%H:%M")
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Animated Stellmaria late-night coding scene">
   <defs>
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="steamBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4"/></filter>
     <radialGradient id="neonPulse"><stop stop-color="#e9bcff" stop-opacity=".34"/><stop offset=".52" stop-color="#b564ff" stop-opacity=".08"/><stop offset="1" stop-color="#9d55ff" stop-opacity="0"/></radialGradient>
     <radialGradient id="moonGlow"><stop stop-color="#f1d6ff" stop-opacity=".55"/><stop offset=".38" stop-color="#b66eff" stop-opacity=".22"/><stop offset="1" stop-color="#8044d5" stop-opacity="0"/></radialGradient>
-    <radialGradient id="lampGlow"><stop stop-color="#fff2b6" stop-opacity=".8"/><stop offset=".25" stop-color="#ffc768" stop-opacity=".35"/><stop offset="1" stop-color="#ff9f40" stop-opacity="0"/></radialGradient>
     <clipPath id="windowOnly"><path d="M1436 0H1902V92H1436ZM1674 101H1902V315H1787V217H1674Z"/></clipPath>
   </defs>
   <image width="{WIDTH}" height="{HEIGHT}" href="data:image/png;base64,{encoded_banner}"/>
   <g aria-label="ambient rain" clip-path="url(#windowOnly)">{falling_rain()}</g>
-  <g aria-label="living city windows" clip-path="url(#windowOnly)">
-    <rect x="1436" y="0" width="466" height="315" fill="#7a9fff" opacity=".02"><animate attributeName="opacity" values=".01;.08;.025;.1;.01" dur="6.4s" repeatCount="indefinite"/></rect>
-    <g fill="#d6b5ff" opacity=".18">
-      <rect x="1707" y="164" width="9" height="15" rx="2"><animate attributeName="opacity" values=".1;.9;.25;.75;.1" dur="4.2s" repeatCount="indefinite"/></rect>
-      <rect x="1762" y="209" width="9" height="14" rx="2"><animate attributeName="opacity" values=".2;.85;.12;.72;.2" dur="5.1s" begin="-1.5s" repeatCount="indefinite"/></rect>
-      <rect x="1825" y="156" width="10" height="16" rx="2"><animate attributeName="opacity" values=".15;.78;.22;.95;.15" dur="3.8s" begin="-2.2s" repeatCount="indefinite"/></rect>
-      <rect x="1872" y="241" width="8" height="13" rx="2"><animate attributeName="opacity" values=".15;.9;.2;.72;.15" dur="4.7s" begin="-.8s" repeatCount="indefinite"/></rect>
-    </g>
-  </g>
   <g aria-label="rising steam" filter="url(#steamBlur)">{steam()}</g>
   <ellipse cx="388" cy="228" rx="390" ry="166" fill="url(#neonPulse)" opacity=".12">
     <animate attributeName="opacity" values=".08;.18;.1;.16;.08" dur="8s" repeatCount="indefinite"/>
@@ -115,8 +75,7 @@ def build() -> str:
     </path>
   </g>
   <g aria-label="glowing desk star" filter="url(#softGlow)">
-    <circle cx="880" cy="556" r="78" fill="url(#moonGlow)" opacity=".1"><animate attributeName="opacity" values=".06;.52;.14;.42;.06" dur="3.6s" repeatCount="indefinite"/></circle>
-    <path d="M880 519l10 26 28 10-28 10-10 28-10-28-28-10 28-10Z" fill="#f1d5ff" opacity=".12"><animate attributeName="opacity" values=".08;.75;.16;.62;.08" dur="3.1s" begin="-.6s" repeatCount="indefinite"/></path>
+    <circle cx="903" cy="590" r="74" fill="url(#moonGlow)" opacity=".04"><animate attributeName="opacity" values=".02;.26;.06;.22;.02" dur="3.8s" repeatCount="indefinite"/></circle>
   </g>
   <g aria-label="glowing hoodie crescent" filter="url(#softGlow)">
     <circle cx="1655" cy="557" r="78" fill="url(#moonGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.4;.1;.48;.04" dur="4.8s" repeatCount="indefinite"/></circle>
@@ -124,14 +83,6 @@ def build() -> str:
   <g aria-label="animated moon globe" filter="url(#softGlow)">
     <circle cx="2055" cy="505" r="96" fill="url(#moonGlow)" opacity=".12"><animate attributeName="opacity" values=".08;.42;.15;.5;.08" dur="5.5s" repeatCount="indefinite"/></circle>
     <circle cx="2055" cy="505" r="61" fill="none" stroke="#dfbbff" stroke-width="2" opacity=".15"><animate attributeName="opacity" values=".08;.52;.12;.44;.08" dur="4.6s" begin="-1.5s" repeatCount="indefinite"/></circle>
-  </g>
-  <g aria-label="glowing shelf lantern" filter="url(#softGlow)">
-    <circle cx="2077" cy="297" r="75" fill="url(#lampGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.55;.12;.42;.04" dur="2.8s" repeatCount="indefinite"/></circle>
-    <ellipse cx="2077" cy="298" rx="11" ry="39" fill="#ffd46f" opacity=".12"><animate attributeName="opacity" values=".05;.85;.16;.68;.05" dur="2.2s" repeatCount="indefinite"/></ellipse>
-  </g>
-  <g aria-label="Minsk time" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
-    <rect x="1207" y="537" width="110" height="35" rx="4" fill="#101028" opacity=".56"/>
-    <g filter="url(#softGlow)">{digital_clock(minsk_time)}</g>
   </g>
 </svg>'''
     ET.fromstring(svg)

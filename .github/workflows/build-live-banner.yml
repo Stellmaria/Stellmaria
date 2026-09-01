@@ -8,9 +8,6 @@ on:
       - "scripts/build_live_banner.py"
       - ".github/workflows/build-live-banner.yml"
   workflow_dispatch:
-  schedule:
-    # Refresh the rendered Minsk clock without relying on script execution in GitHub images.
-    - cron: "0 * * * *"
 
 permissions:
   contents: write
