@@ -2,7 +2,7 @@
   <img src="./assets/stellmaria-banner-hd.png" width="100%" alt="Stellmaria — late-night coding" />
 </p>
 
-<br><br>
+<br>
 
 <p align="center">
   <img src="./assets/intro-live.svg" width="100%" alt="Stellmaria — animated developer introduction" />
