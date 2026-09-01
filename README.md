@@ -26,6 +26,8 @@
   <img src="./assets/profile-metrics-live.svg" width="100%" alt="GitHub contribution metrics since 2022" />
 </p>
 
+<br>
+
 <p align="center">
   <img src="./assets/afterglow.svg" width="100%" alt="Code, dream, create" />
 </p>

@@ -104,7 +104,6 @@ PANELS = [
             ("Servlet/JSP", "servletjsp", "#f6efff"),
             ("aiogram", "telegram", "#26A5E4"),
             ("Telethon", "telethon", "#8f7cf7"),
-            ("Flask", "flask", "#F5F5F5"),
         ],
         "lines": [
             "Spring Boot · MVC · Security · Data JPA · Hibernate",
@@ -122,7 +121,6 @@ PANELS = [
             ("SQLite", "sqlite", "#5BA4CF"),
             ("Liquibase", "liquibase", "#2962FF"),
             ("Flyway", "flyway", "#CC0200"),
-            ("QueryDSL", "querydsl", "#D8B4FE"),
         ],
         "lines": [
             "PostgreSQL 14–17 · Redis · SQLite · JDBC · asyncpg",
@@ -137,11 +135,9 @@ PANELS = [
             ("Gradle", "gradle", "#8DD6F9"),
             ("Maven", "apachemaven", "#C71A36"),
             ("JUnit", "junit5", "#25A162"),
-            ("Mockito", "mockito", "#a98df8"),
-            ("T-containers", "testcontainers", "#8DD6F9"),
             ("pytest", "pytest", "#0A9EDC"),
             ("Ruff", "ruff", "#D7FF64"),
-            ("Actions", "githubactions", "#2088FF"),
+            ("CI", "githubactions", "#2088FF"),
         ],
         "lines": [
             "JUnit 5 · Mockito · Spring Test · Testcontainers · pytest",
@@ -157,9 +153,8 @@ PANELS = [
             ("Linux", "linux", "#FCC624"),
             ("Android", "android", "#3DDC84"),
             ("Git", "git", "#F05032"),
-            ("IntelliJ", "intellijidea", "#F5F5F5"),
             ("systemd", "systemd", "#D8B4FE"),
-            ("SSH tunnel", "sshtunnel", "#8f7cf7"),
+            ("SSH", "sshtunnel", "#8f7cf7"),
         ],
         "lines": [
             "Docker Compose · Linux · systemd · GHCR · GitHub Actions",
@@ -175,9 +170,9 @@ PANELS = [
             ("Ollama", "ollama", "#F5F5F5"),
             ("Qwen VL", "alibabacloud", "#FF6A00"),
             ("Pillow", "pillow", "#65B8C2"),
-            ("crypto", "cryptography", "#d8b4fe"),
+            ("Crypto", "cryptography", "#d8b4fe"),
             ("PyYAML", "yaml", "#CB171E"),
-            ("mitmproxy", "mitmproxy", "#D8B4FE"),
+            ("Proxy", "mitmproxy", "#D8B4FE"),
         ],
         "lines": [
             "OpenAI Responses API · Structured Outputs · image providers",
@@ -275,8 +270,8 @@ def build() -> str:
         '<circle cx="69" cy="43" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
         '<circle cx="842" cy="46" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.15;1" dur="4.3s" repeatCount="indefinite"/></circle>',
         '<text x="46" y="47" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="20" font-weight="700">ENGINEERING TOOLKIT</text>',
-        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">VERIFIED STACK · 6 DOMAINS</text>',
-        '<rect x="742" y="60" width="132" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="742;782;742" dur="5s" repeatCount="indefinite"/><animate attributeName="width" values="132;92;132" dur="5s" repeatCount="indefinite"/></rect>',
+        '<text x="874" y="47" text-anchor="end" fill="#c7b4da" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">AUDITED STACK · 6 DOMAINS</text>',
+        '<rect x="742" y="60" width="132" height="2" rx="1" fill="url(#edge)" opacity=".72" filter="url(#glow)"><animate attributeName="x" values="742;782;742" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="132;92;132" dur="6s" repeatCount="indefinite"/></rect>',
     ]
 
     for idx, panel in enumerate(PANELS):
@@ -287,8 +282,8 @@ def build() -> str:
         accent = panel["accent"]
         svg.extend([
             f'<g transform="translate({x} {y})">',
-            f'<rect width="{panel_w}" height="{panel_h}" rx="22" fill="#13101f" stroke="#3d2e51"><animate attributeName="stroke" values="#3d2e51;{accent};#3d2e51" dur="8s" begin="{idx * 1.1}s" repeatCount="indefinite"/></rect>',
-            f'<rect x="18" y="16" width="4" height="18" rx="2" fill="{accent}"><animate attributeName="opacity" values=".3;1;.3" dur="3.6s" begin="{idx * .35}s" repeatCount="indefinite"/></rect>',
+            f'<rect width="{panel_w}" height="{panel_h}" rx="22" fill="#141120" stroke="#3c2e50"><animate attributeName="stroke" values="#3c2e50;{accent};#3c2e50" dur="8s" begin="{idx * 1.1}s" repeatCount="indefinite"/></rect>',
+            f'<rect x="18" y="16" width="4" height="18" rx="2" fill="{accent}"><animate attributeName="opacity" values=".3;1;.3" dur="4s" begin="{idx * .35}s" repeatCount="indefinite"/></rect>',
             f'<text x="32" y="30" fill="#f0e7fb" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11.5" font-weight="700">{html.escape(panel["title"])}</text>',
             '<circle cx="382" cy="23" r="1.7" fill="#c4a5ef"><animate attributeName="opacity" values=".2;1;.2" dur="4s" repeatCount="indefinite"/></circle>',
         ])

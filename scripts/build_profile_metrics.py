@@ -3,16 +3,23 @@ from __future__ import annotations
 import json
 import os
 import urllib.request
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets" / "profile-metrics-live.svg"
 USERNAME = os.environ.get("PROFILE_USERNAME", "Stellmaria")
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
-TIMEZONE = ZoneInfo(os.environ.get("PROFILE_TIMEZONE", "Europe/Minsk"))
+TIMEZONE_NAME = os.environ.get("PROFILE_TIMEZONE", "Europe/Minsk")
+try:
+    TIMEZONE = ZoneInfo(TIMEZONE_NAME)
+except ZoneInfoNotFoundError:
+    if TIMEZONE_NAME != "Europe/Minsk":
+        raise
+    # Windows' embeddable Python can lack IANA tzdata. Minsk is UTC+3 year-round.
+    TIMEZONE = timezone(timedelta(hours=3), "Europe/Minsk")
 API = "https://api.github.com"
 
 
@@ -141,8 +148,8 @@ def build() -> str:
         '<filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>',
         '</defs>',
         '<rect x="1" y="1" width="918" height="298" rx="28" fill="url(#bg)" stroke="#39294d"/>',
-        '<circle cx="64" cy="42" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" repeatCount="indefinite"/></circle>',
-        '<circle cx="853" cy="45" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.2;1" dur="4.4s" repeatCount="indefinite"/></circle>',
+        '<circle cx="64" cy="42" r="2" fill="#d8b4fe"><animate attributeName="opacity" values=".2;1;.2" dur="4s" repeatCount="indefinite"/></circle>',
+        '<circle cx="853" cy="45" r="1.7" fill="#efa5d1"><animate attributeName="opacity" values="1;.2;1" dur="4s" repeatCount="indefinite"/></circle>',
         '<text x="44" y="49" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="19" font-weight="700">GITHUB AT A GLANCE</text>',
         f'<text x="44" y="73" fill="#998aaa" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5">contribution history since {first_year} · refreshed {refreshed}</text>',
         metric(44, "CONTRIBUTIONS SINCE 2022", f"{total_all:,}", "GitHub contribution calendar"),

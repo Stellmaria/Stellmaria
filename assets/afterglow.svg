@@ -13,14 +13,14 @@
 
   <text x="42" y="43" fill="#f6efff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" font-weight="700">PROFILE SIGNAL</text>
   <text x="42" y="62" fill="#8f819f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">quiet craft · visible progress</text>
-  <circle cx="42" cy="83" r="3" fill="#8f7cf7"><animate attributeName="opacity" values="1;.25;1" dur="1.8s" repeatCount="indefinite"/></circle>
+  <circle cx="42" cy="83" r="3" fill="#8f7cf7"><animate attributeName="opacity" values="1;.25;1" dur="4s" repeatCount="indefinite"/></circle>
   <text x="53" y="87" fill="#b9a9c9" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9">ACTIVE</text>
 
   <g text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">
-    <text x="560" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="1">CODE · DREAM · CREATE<animate attributeName="opacity" values="1;1;0;0;0;0;0;0;1" keyTimes="0;.24;.31;.37;.58;.66;.84;.92;1" dur="12s" repeatCount="indefinite"/></text>
-    <text x="560" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="0">BUILD · VERIFY · SHIP<animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0" keyTimes="0;.25;.33;.55;.64;.71;.84;.93;1" dur="12s" repeatCount="indefinite"/></text>
-    <text x="560" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="0">SYSTEMS · DATA · AUTOMATION<animate attributeName="opacity" values="0;0;0;0;1;1;0;0;0" keyTimes="0;.29;.45;.59;.68;.84;.92;.97;1" dur="12s" repeatCount="indefinite"/></text>
-    <text x="560" y="73" fill="#8e819b" font-family="Inter,Segoe UI,sans-serif" font-size="10.5">one thoughtful commit at a time</text>
+    <text x="460" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="1">CODE · DREAM · CREATE<animate attributeName="opacity" values="1;1;0;0;0;0;0;0;1" keyTimes="0;.24;.31;.37;.58;.66;.84;.92;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="460" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="0">BUILD · VERIFY · SHIP<animate attributeName="opacity" values="0;0;1;1;0;0;0;0;0" keyTimes="0;.25;.33;.55;.64;.71;.84;.93;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="460" y="50" fill="#f0e7fb" font-size="13" font-weight="700" opacity="0">SYSTEMS · DATA · AUTOMATION<animate attributeName="opacity" values="0;0;0;0;1;1;0;0;0" keyTimes="0;.29;.45;.59;.68;.84;.92;.97;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="460" y="73" fill="#8e819b" font-family="Inter,Segoe UI,sans-serif" font-size="10.5">one thoughtful commit at a time</text>
   </g>
 
   <rect x="76" y="96" width="768" height="2" rx="1" fill="url(#accent)" opacity=".45" filter="url(#glow)">
