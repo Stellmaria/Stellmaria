@@ -8,7 +8,7 @@ on:
       - ".github/workflows/profile-metrics.yml"
   workflow_dispatch:
   schedule:
-    - cron: "23 3 * * *"
+    - cron: "23 */3 * * *"
 
 permissions:
   contents: write
@@ -36,6 +36,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_USERNAME: Stellmaria
         run: python scripts/build_profile_metrics.py
+
+      - name: Validate metrics SVG
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse("assets/profile-metrics-live.svg")
+          print("profile-metrics-live.svg is valid XML")
+          PY
 
       - name: Commit generated metrics
         run: |
