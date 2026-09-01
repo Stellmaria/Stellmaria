@@ -1,34 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="230" viewBox="0 0 920 230" role="img" aria-label="Developer signature">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="230" viewBox="0 0 920 230" role="img" aria-label="Animated developer signature">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#0a0a15"/><stop offset=".55" stop-color="#121021"/><stop offset="1" stop-color="#171025"/>
+      <stop stop-color="#080914"/><stop offset=".55" stop-color="#110d1d"/><stop offset="1" stop-color="#1a1027"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".45" stop-color="#9b87f5"/><stop offset="1" stop-color="#f0a7d2"/></linearGradient>
-    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".48" stop-color="#8f7cf7"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
   <rect x="1" y="1" width="918" height="228" rx="26" fill="url(#bg)" stroke="#352847"/>
-  <circle cx="48" cy="42" r="2" fill="#d6b3ff"/><circle cx="865" cy="43" r="1.5" fill="#f0a7d2"/><circle cx="887" cy="193" r="2" fill="#8f79ca"/>
+  <circle cx="48" cy="42" r="2" fill="#d6b3ff"><animate attributeName="opacity" values=".2;1;.2" dur="3.4s" repeatCount="indefinite"/></circle>
+  <circle cx="865" cy="43" r="1.6" fill="#f0a7d2"><animate attributeName="opacity" values="1;.15;1" dur="4.1s" repeatCount="indefinite"/></circle>
+  <circle cx="887" cy="193" r="2" fill="#8f79ca"><animate attributeName="opacity" values=".2;1;.2" dur="5s" repeatCount="indefinite"/></circle>
   <text x="42" y="48" fill="#f4edff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="17" font-weight="700">DEVELOPER SIGNATURE</text>
-  <text x="42" y="72" fill="#8f829f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">thoughtful systems · quiet details · deliberate delivery</text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" text-anchor="start">
+    <text x="42" y="72" fill="#a998bb" opacity="0">thoughtful systems · quiet details · deliberate delivery<animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;.04;.29;.34;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="42" y="72" fill="#b6a4c8" opacity="0">design for failure · simplify the boundary · observe the result<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.32;.36;.62;.67;1" dur="12s" repeatCount="indefinite"/></text>
+    <text x="42" y="72" fill="#c0add0" opacity="0">build quietly · ship carefully · refine from real signals<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.65;.69;.95;1" dur="12s" repeatCount="indefinite"/></text>
+  </g>
 
   <g transform="translate(42 96)">
-    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"/>
+    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"><animate attributeName="stroke" values="#382c4b;#8f7cf7;#382c4b" dur="7.5s" begin="0s" repeatCount="indefinite"/></rect>
+    <rect x="0" y="17" width="3" height="54" rx="1.5" fill="#d8b4fe" opacity=".4"><animate attributeName="opacity" values=".2;1;.2" dur="3.8s" begin="0s" repeatCount="indefinite"/></rect>
     <text x="18" y="26" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">01 / SYSTEMS</text>
     <text x="18" y="50" fill="#efe7fb" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="700">Reliable by design</text>
     <text x="18" y="70" fill="#9488a4" font-family="Inter,Segoe UI,sans-serif" font-size="11">clear boundaries · predictable behavior</text>
   </g>
   <g transform="translate(331 96)">
-    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"/>
+    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"><animate attributeName="stroke" values="#382c4b;#efa5d1;#382c4b" dur="7.5s" begin="2.5s" repeatCount="indefinite"/></rect>
+    <rect x="0" y="17" width="3" height="54" rx="1.5" fill="#efa5d1" opacity=".4"><animate attributeName="opacity" values=".2;1;.2" dur="3.8s" begin="1.3s" repeatCount="indefinite"/></rect>
     <text x="18" y="26" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">02 / CRAFT</text>
     <text x="18" y="50" fill="#efe7fb" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="700">Simple on purpose</text>
     <text x="18" y="70" fill="#9488a4" font-family="Inter,Segoe UI,sans-serif" font-size="11">readable code · calm interfaces</text>
   </g>
   <g transform="translate(620 96)">
-    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"/>
+    <rect width="258" height="88" rx="18" fill="#141221" stroke="#382c4b"><animate attributeName="stroke" values="#382c4b;#b99cff;#382c4b" dur="7.5s" begin="5s" repeatCount="indefinite"/></rect>
+    <rect x="0" y="17" width="3" height="54" rx="1.5" fill="#b99cff" opacity=".4"><animate attributeName="opacity" values=".2;1;.2" dur="3.8s" begin="2.6s" repeatCount="indefinite"/></rect>
     <text x="18" y="26" fill="#bca5dc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" font-weight="700">03 / DELIVERY</text>
     <text x="18" y="50" fill="#efe7fb" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="700">Ship, observe, refine</text>
     <text x="18" y="70" fill="#9488a4" font-family="Inter,Segoe UI,sans-serif" font-size="11">automation · feedback · iteration</text>
   </g>
 
-  <rect x="42" y="207" width="836" height="2" rx="1" fill="url(#accent)" opacity=".45" filter="url(#glow)"/>
+  <rect x="42" y="207" width="836" height="2" rx="1" fill="url(#accent)" opacity=".42" filter="url(#glow)"><animate attributeName="x" values="42;92;42" dur="6s" repeatCount="indefinite"/><animate attributeName="width" values="836;736;836" dur="6s" repeatCount="indefinite"/></rect>
 </svg>
