@@ -36,17 +36,46 @@ def falling_rain() -> str:
 
 def steam() -> str:
     paths = (
-        'M735 486 C713 451 752 430 732 389 C720 365 738 343 754 325',
-        'M758 489 C786 455 749 429 770 393 C788 365 770 343 786 317',
-        'M708 492 C687 466 715 444 699 414 C690 394 701 374 712 356',
+        'M735 494 C728 469 746 448 738 423 C729 394 746 372 738 344',
+        'M751 493 C764 470 747 447 758 420 C770 392 753 370 766 342',
+        'M766 492 C780 465 763 443 774 417 C785 392 775 369 786 351',
+        'M742 488 C751 467 739 447 747 429 C754 409 748 388 757 370',
     )
     return "".join(
-        f'<path d="{path}" fill="none" stroke="#e2d7ff" stroke-width="4" stroke-linecap="round" opacity="0">'
-        f'<animateTransform attributeName="transform" type="translate" values="0 14;0 -22" dur="{7 + index * .7}s" begin="-{index * 2.2}s" repeatCount="indefinite"/>'
-        '<animate attributeName="opacity" values="0;.2;.25;.08;0" keyTimes="0;.18;.46;.8;1" dur="7s" repeatCount="indefinite"/>'
+        f'<path d="{path}" fill="none" stroke="#eee6ff" stroke-width="2.1" stroke-linecap="round" opacity="0">'
+        f'<animateTransform attributeName="transform" type="translate" values="0 7;0 -17" dur="{8.4 + index * .65}s" begin="-{index * 1.7}s" repeatCount="indefinite"/>'
+        '<animate attributeName="opacity" values="0;.045;.13;.05;0" keyTimes="0;.18;.48;.8;1" dur="8.4s" repeatCount="indefinite"/>'
         '</path>'
         for index, path in enumerate(paths)
     )
+
+
+def digital_clock(value: str) -> str:
+    """Render a compact seven-segment clock that matches the desk display."""
+    segments = {
+        "0": "ab cdef".replace(" ", ""), "1": "bc", "2": "abged", "3": "abgcd",
+        "4": "fgbc", "5": "afgcd", "6": "afgecd", "7": "abc", "8": "abcdefg", "9": "abfgcd",
+    }
+    positions = {
+        "a": ((3, 0), (14, 0)), "b": ((17, 3), (17, 11)), "c": ((17, 16), (17, 24)),
+        "d": ((3, 27), (14, 27)), "e": ((0, 16), (0, 24)), "f": ((0, 3), (0, 11)),
+        "g": ((3, 13.5), (14, 13.5)),
+    }
+    x = 1212
+    parts: list[str] = []
+    for char in value:
+        if char == ":":
+            parts.append(f'<circle cx="{x + 3}" cy="550" r="1.8" fill="#bc89ff"/><circle cx="{x + 3}" cy="562" r="1.8" fill="#bc89ff"/>')
+            x += 10
+            continue
+        for segment in segments[char]:
+            (x1, y1), (x2, y2) = positions[segment]
+            parts.append(
+                f'<line x1="{x + x1}" y1="{541 + y1}" x2="{x + x2}" y2="{541 + y2}" '
+                'stroke="#bd8cff" stroke-width="2.7" stroke-linecap="round"/>'
+            )
+        x += 21
+    return "".join(parts)
 
 
 def build() -> str:
@@ -55,44 +84,54 @@ def build() -> str:
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}" role="img" aria-label="Animated Stellmaria late-night coding scene">
   <defs>
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="steamBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4"/></filter>
     <radialGradient id="neonPulse"><stop stop-color="#e9bcff" stop-opacity=".34"/><stop offset=".52" stop-color="#b564ff" stop-opacity=".08"/><stop offset="1" stop-color="#9d55ff" stop-opacity="0"/></radialGradient>
     <radialGradient id="moonGlow"><stop stop-color="#f1d6ff" stop-opacity=".55"/><stop offset=".38" stop-color="#b66eff" stop-opacity=".22"/><stop offset="1" stop-color="#8044d5" stop-opacity="0"/></radialGradient>
+    <radialGradient id="lampGlow"><stop stop-color="#fff2b6" stop-opacity=".8"/><stop offset=".25" stop-color="#ffc768" stop-opacity=".35"/><stop offset="1" stop-color="#ff9f40" stop-opacity="0"/></radialGradient>
     <clipPath id="windowOnly"><path d="M1436 0H1902V92H1436ZM1674 101H1902V315H1787V217H1674Z"/></clipPath>
   </defs>
   <image width="{WIDTH}" height="{HEIGHT}" href="data:image/png;base64,{encoded_banner}"/>
   <g aria-label="ambient rain" clip-path="url(#windowOnly)">{falling_rain()}</g>
-  <g aria-label="rising steam" filter="url(#softGlow)">{steam()}</g>
+  <g aria-label="living city windows" clip-path="url(#windowOnly)">
+    <rect x="1436" y="0" width="466" height="315" fill="#7a9fff" opacity=".02"><animate attributeName="opacity" values=".01;.08;.025;.1;.01" dur="6.4s" repeatCount="indefinite"/></rect>
+    <g fill="#d6b5ff" opacity=".18">
+      <rect x="1707" y="164" width="9" height="15" rx="2"><animate attributeName="opacity" values=".1;.9;.25;.75;.1" dur="4.2s" repeatCount="indefinite"/></rect>
+      <rect x="1762" y="209" width="9" height="14" rx="2"><animate attributeName="opacity" values=".2;.85;.12;.72;.2" dur="5.1s" begin="-1.5s" repeatCount="indefinite"/></rect>
+      <rect x="1825" y="156" width="10" height="16" rx="2"><animate attributeName="opacity" values=".15;.78;.22;.95;.15" dur="3.8s" begin="-2.2s" repeatCount="indefinite"/></rect>
+      <rect x="1872" y="241" width="8" height="13" rx="2"><animate attributeName="opacity" values=".15;.9;.2;.72;.15" dur="4.7s" begin="-.8s" repeatCount="indefinite"/></rect>
+    </g>
+  </g>
+  <g aria-label="rising steam" filter="url(#steamBlur)">{steam()}</g>
   <ellipse cx="388" cy="228" rx="390" ry="166" fill="url(#neonPulse)" opacity=".12">
     <animate attributeName="opacity" values=".08;.18;.1;.16;.08" dur="8s" repeatCount="indefinite"/>
   </ellipse>
   <g aria-label="twinkling stars" fill="#f8dfff" filter="url(#softGlow)">
     <path d="M117 67l5 14 14 5-14 5-5 14-5-14-14-5 14-5Z" opacity=".14"><animate attributeName="opacity" values=".1;.78;.18;.66;.1" dur="3.6s" repeatCount="indefinite"/></path>
     <path d="M667 78l6 17 17 6-17 6-6 17-6-17-17-6 17-6Z" opacity=".14"><animate attributeName="opacity" values=".12;.7;.14;.9;.12" dur="4.1s" begin="-1.1s" repeatCount="indefinite"/></path>
-    <path d="M713 303l4 11 11 4-11 4-4 11-4-11-11-4 11-4Z" opacity=".12"><animate attributeName="opacity" values=".08;.8;.1;.55;.08" dur="3.2s" begin="-2s" repeatCount="indefinite"/></path>
   </g>
   <g aria-label="cat blink">
     <path d="M1412 267 Q1427 280 1444 267" fill="none" stroke="#1c1720" stroke-width="10" stroke-linecap="round" opacity="0">
       <animate attributeName="opacity" values="0;0;.88;.88;0;0;.88;.88;0" keyTimes="0;.2;.225;.25;.275;.61;.635;.66;1" dur="5.8s" repeatCount="indefinite"/>
     </path>
   </g>
-  <g aria-label="cat ear movement" fill="none" stroke-linecap="round">
-    <path d="M1450 102Q1490 137 1539 232" stroke="#f3ad91" stroke-width="4" opacity=".34">
-      <animateTransform attributeName="transform" type="rotate" values="0 1510 228;2.8 1510 228;0 1510 228" dur="3.4s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values=".18;.62;.3;.18" dur="3.4s" repeatCount="indefinite"/>
-    </path>
-    <path d="M1538 150Q1572 178 1603 239" stroke="#f0b1d0" stroke-width="3.5" opacity=".3">
-      <animateTransform attributeName="transform" type="rotate" values="0 1570 226;-3.2 1570 226;0 1570 226" dur="4.1s" begin="-1.3s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values=".16;.58;.26;.16" dur="4.1s" begin="-1.3s" repeatCount="indefinite"/>
-    </path>
+  <g aria-label="glowing desk star" filter="url(#softGlow)">
+    <circle cx="880" cy="556" r="78" fill="url(#moonGlow)" opacity=".1"><animate attributeName="opacity" values=".06;.52;.14;.42;.06" dur="3.6s" repeatCount="indefinite"/></circle>
+    <path d="M880 519l10 26 28 10-28 10-10 28-10-28-28-10 28-10Z" fill="#f1d5ff" opacity=".12"><animate attributeName="opacity" values=".08;.75;.16;.62;.08" dur="3.1s" begin="-.6s" repeatCount="indefinite"/></path>
   </g>
-  <g aria-label="animated moon" filter="url(#softGlow)">
-    <circle cx="2030" cy="492" r="91" fill="url(#moonGlow)" opacity=".12"><animate attributeName="opacity" values=".08;.35;.15;.42;.08" dur="5.5s" repeatCount="indefinite"/></circle>
-    <circle cx="2030" cy="492" r="57" fill="none" stroke="#dfbbff" stroke-width="2" opacity=".15"><animate attributeName="opacity" values=".08;.48;.12;.38;.08" dur="4.6s" begin="-1.5s" repeatCount="indefinite"/></circle>
+  <g aria-label="glowing hoodie crescent" filter="url(#softGlow)">
+    <circle cx="1655" cy="557" r="78" fill="url(#moonGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.4;.1;.48;.04" dur="4.8s" repeatCount="indefinite"/></circle>
+  </g>
+  <g aria-label="animated moon globe" filter="url(#softGlow)">
+    <circle cx="2055" cy="505" r="96" fill="url(#moonGlow)" opacity=".12"><animate attributeName="opacity" values=".08;.42;.15;.5;.08" dur="5.5s" repeatCount="indefinite"/></circle>
+    <circle cx="2055" cy="505" r="61" fill="none" stroke="#dfbbff" stroke-width="2" opacity=".15"><animate attributeName="opacity" values=".08;.52;.12;.44;.08" dur="4.6s" begin="-1.5s" repeatCount="indefinite"/></circle>
+  </g>
+  <g aria-label="glowing shelf lantern" filter="url(#softGlow)">
+    <circle cx="2077" cy="297" r="75" fill="url(#lampGlow)" opacity=".08"><animate attributeName="opacity" values=".04;.55;.12;.42;.04" dur="2.8s" repeatCount="indefinite"/></circle>
+    <ellipse cx="2077" cy="298" rx="11" ry="39" fill="#ffd46f" opacity=".12"><animate attributeName="opacity" values=".05;.85;.16;.68;.05" dur="2.2s" repeatCount="indefinite"/></ellipse>
   </g>
   <g aria-label="Minsk time" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" text-anchor="middle">
-    <rect x="1203" y="533" width="120" height="43" rx="5" fill="#0b0d26" opacity=".92"/>
-    <text x="1263" y="565" fill="#b986ff" font-size="28" font-weight="700">{minsk_time}</text>
-    <circle cx="1215" cy="544" r="1.8" fill="#edc1ff"><animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/></circle>
+    <rect x="1207" y="537" width="110" height="35" rx="4" fill="#101028" opacity=".56"/>
+    <g filter="url(#softGlow)">{digital_clock(minsk_time)}</g>
   </g>
 </svg>'''
     ET.fromstring(svg)
