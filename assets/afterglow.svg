@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="920" height="120" viewBox="0 0 920 120" role="img" aria-label="Animated profile signal">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#080914"/><stop offset=".5" stop-color="#100d1d"/><stop offset="1" stop-color="#1b1027"/></linearGradient>
-    <linearGradient id="line" x1="0" x2="1"><stop stop-color="#d8b4fe" stop-opacity="0"/><stop offset=".3" stop-color="#a88be0"/><stop offset=".7" stop-color="#e5a2cf"/><stop offset="1" stop-color="#efa5d1" stop-opacity="0"/></linearGradient>
-    <filter id="glow" x="-30%" y="-300%" width="160%" height="700%"><feGaussianBlur stdDeviation="3"/></filter>
+    <linearGradient id="accent" x1="0" x2="1"><stop stop-color="#d8b4fe"/><stop offset=".5" stop-color="#8f7cf7"/><stop offset="1" stop-color="#efa5d1"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
   <rect x="1" y="1" width="918" height="118" rx="26" fill="url(#bg)" stroke="#39294d"/>
 
@@ -23,7 +23,8 @@
     <text x="560" y="73" fill="#8e819b" font-family="Inter,Segoe UI,sans-serif" font-size="10.5">one thoughtful commit at a time</text>
   </g>
 
-  <rect x="276" y="96" width="562" height="1.5" rx="1" fill="url(#line)" opacity=".45"/>
-  <rect x="276" y="95" width="94" height="3" rx="1.5" fill="#d8b4fe" opacity=".28" filter="url(#glow)"><animate attributeName="x" values="276;744;276" dur="6s" repeatCount="indefinite"/></rect>
-  <rect x="276" y="95" width="94" height="3" rx="1.5" fill="url(#line)"><animate attributeName="x" values="276;744;276" dur="6s" repeatCount="indefinite"/></rect>
+  <rect x="76" y="96" width="768" height="2" rx="1" fill="url(#accent)" opacity=".45" filter="url(#glow)">
+    <animate attributeName="x" values="76;126;76" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="width" values="768;668;768" dur="6s" repeatCount="indefinite"/>
+  </rect>
 </svg>
